@@ -1,0 +1,4 @@
+html2markdown
+pytest
+requests
+urllib3
