@@ -1,4 +1,4 @@
-# Notes on analysis
+# Notes on Success
 
 + runtime : 232 ms (faster than 89.76% of python3 submissions)
 + memory : 24.8 MB (less than 36.15% of python3 submissions)
