@@ -1,5 +1,5 @@
 # Notes on Success
-+ runtime : 36 ms (faster than 56.37% of python3 submissions)
++ runtime : 32 ms (faster than 82.22% of python3 submissions)
 + memory : 14.1 MB (less than 83.15% of python3 submissions)
 
 + More of a math problem than problem solving :) 
