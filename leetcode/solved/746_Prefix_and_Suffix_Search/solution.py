@@ -68,13 +68,14 @@ class WordFilter:
 # param_1 = obj.f(prefix,suffix)
 
 
-@pytest.mark.parametrize('words, prefix, suffix, expected', [
-    (["apple"], "a", "e", 0),
-    (["a","a","a","a","a","b","b","b","b","b"], "a", "a", 4)
+@pytest.mark.parametrize('commands, args, expected', [
+    (['WordFilter', 'f'], [[["apple"]],["a", "e"]], [None, 0]),
+    (['WordFilter', 'f'], [[["a","a","a","a","a","b","b","b","b","b"]], ["a", "a"]], [None, 4])
 ])
-def test(words, prefix, suffix, expected):
-    obj = WordFilter(words)
-    assert obj.f(prefix,suffix) == expected
+def test(commands, args, expected):
+    o = globals()[commands[0]](*args[0])
+    for cmd, arg, exp in zip(commands[1:], args[1:], expected[1:]):
+        assert exp == getattr(o, cmd)(*arg)
 
 if __name__ == '__main__':
     sys.exit(pytest.main(['-s', '-v'] + sys.argv))
