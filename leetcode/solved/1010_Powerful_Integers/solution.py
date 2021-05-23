@@ -41,20 +41,20 @@ from typing import List
 
 class Solution:
     def powerfulIntegers(self, x: int, y: int, bound: int) -> List[int]:
-        power_x, power_y, powerful = [1], [1], set()
-        _x = x
-        while _x <= bound and x != 1:
-            power_x.append(_x)
-            _x *= x
-        _y = y
-        while _y <= bound and y != 1:
-            power_y.append(_y)
-            _y *= y
-        
-        for x_i in power_x:
-            for y_j in power_y:
-                if x_i + y_j <= bound:
-                    powerful.add(x_i + y_j)
+        powerful = set()
+        x_i = 1
+        while x_i <= bound:
+            y_j = 1
+            while y_j <= bound:
+                s = x_i + y_j
+                if s <= bound:
+                    powerful.add(s)
+                y_j *= y
+                if y_j == 1:
+                    break
+            x_i *= x
+            if x_i == 1:
+                break
         return list(powerful)
 
 
