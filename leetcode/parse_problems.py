@@ -187,8 +187,6 @@ def pack_problem(url):
 
     with open(d/'NOTE.md', 'w') as f:
         f.write(f'# Notes on Success\n')
-        f.write(f'+ runtime : - ms (faster than -% of python3 submissions)\n')
-        f.write(f'+ memory : - MB (less than -% of python3 submissions)\n\n')
         f.write(f'+ \n\n')
         f.write(f'> Time : O() , Space : O()')
 
