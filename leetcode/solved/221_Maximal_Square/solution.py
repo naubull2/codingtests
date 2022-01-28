@@ -39,7 +39,6 @@ class Solution:
         M, N = len(matrix), len(matrix[0])
         ms = [[int(col) for col in row] for row in matrix]
         maximal = int(any(any(row) for row in ms))
-
         # iterate from inside to out
         if N > 1 and M > 1:
             for i in range(len(matrix)-2, -1, -1):
