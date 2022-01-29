@@ -33,44 +33,48 @@ Constraints:
 	The given input is guaranteed to be a tree and there will be no repeated edges.
 """
 import pytest
-import pdb
 from collections import defaultdict
 from typing import List
 
 
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
-        ## O(n^2) solution will timeout.
-        mht = []
-        min_height = n
+        if n < 3:
+            return list(range(n))
 
+        # adjacency list
         tree = defaultdict(list)
-
         for e in edges:
             tree[e[0]].append(e[1])
             tree[e[1]].append(e[0])
-        for root in range(n):
-            stack = [(root, -1, 0)]
-            max_length = 0
-            while stack:
-                node, parent, height = stack.pop()
-                max_length = max(height, max_length)
-                # update stack, traverse through
-                for c in tree[node]:
-                    if c != parent:
-                        stack.append((c, node, height+1))
-            # reset on new mht
-            if max_length < min_height:
-                mht = [root]
-                min_height = max_length
-            elif max_length == min_height:
-                mht.append(root)
-        return mht
+        
+        # pruning
+        remaining = len(tree)
+        leaves = []
+        for k, v in tree.items():
+            if len(v) == 1:
+                leaves.append(k)
+
+        while remaining > 2:
+            remaining -= len(leaves)
+            new_leaves = [] 
+            while leaves:
+                # remove leaf / its edge, add new leaf if found
+                leaf = leaves.pop()
+                neighbor = tree.pop(leaf)[0] # leaf must only have one adjacent node
+                tree[neighbor].remove(leaf)
+                if len(tree[neighbor]) == 1:
+                    new_leaves.append(neighbor)
+            leaves = new_leaves
+
+        return list(tree.keys())
+
                 
-             
+            
 
 
 @pytest.mark.parametrize('n, edges, output', [
+    (1, [], [0]),
     (4, [[1,0],[1,2],[1,3]], [1]),
     (6, [[3,0],[3,1],[3,2],[3,4],[5,4]], [3, 4]),
     (8, [[0,1],[1,2],[2,3],[0,4],[4,5],[4,6],[6,7]], [0])
@@ -79,5 +83,4 @@ def test(n, edges, output):
     assert Solution().findMinHeightTrees(n, edges) == output
 
 if __name__ == '__main__':
-    Solution().findMinHeightTrees(6, [[3,0],[3,1],[3,2],[3,4],[5,4]])
     sys.exit(pytest.main(['-s', '-v'] + sys.argv))
