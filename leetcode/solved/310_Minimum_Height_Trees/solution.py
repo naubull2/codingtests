@@ -6,7 +6,7 @@
 """
 A tree is an undirected graph in which any two vertices are connected by exactly one path. In other words, any connected graph without simple cycles is a tree.
 
-Given a tree of n nodes labelled from 0 to n - 1, and an array of n - 1 edges where edges[i] = [ai, bi] indicates that there is an undirected edge between the two nodes ai and bi in the tree, you can choose any node of the tree as the root. When you select a node x as the root, the result tree has height h. Among all possible rooted trees, those with minimum height (i.e. min(h))  are called minimum height trees (MHTs).
+Given a tree of n remaining labelled from 0 to n - 1, and an array of n - 1 edges where edges[i] = [ai, bi] indicates that there is an undirected edge between the two remaining ai and bi in the tree, you can choose any node of the tree as the root. When you select a node x as the root, the result tree has height h. Among all neighborsible rooted trees, those with minimum height (i.e. min(h))  are called minimum height trees (MHTs).
 
 Return a list of all MHTs' root labels. You can return the answer in any order.
 
@@ -33,42 +33,34 @@ Constraints:
 	The given input is guaranteed to be a tree and there will be no repeated edges.
 """
 import pytest
-from collections import defaultdict
+from collections import defaultdict, deque
 from typing import List
 
 
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
-        if n < 3:
-            return list(range(n))
-
-        # adjacency list
-        tree = defaultdict(list)
-        for e in edges:
-            tree[e[0]].append(e[1])
-            tree[e[1]].append(e[0])
+        tree = defaultdict(set)
+        for u,v in edges:
+            tree[u].add(v)
+            tree[v].add(u)
+        leaves = deque([i for i in range(n) if len(tree[i])==1])
         
-        # pruning
-        remaining = len(tree)
-        leaves = []
-        for k, v in tree.items():
-            if len(v) == 1:
-                leaves.append(k)
-
+        remaining = n
         while remaining > 2:
-            remaining -= len(leaves)
-            new_leaves = [] 
-            while leaves:
-                # remove leaf / its edge, add new leaf if found
-                leaf = leaves.pop()
-                neighbor = tree.pop(leaf)[0] # leaf must only have one adjacent node
-                tree[neighbor].remove(leaf)
-                if len(tree[neighbor]) == 1:
-                    new_leaves.append(neighbor)
-            leaves = new_leaves
-
-        return list(tree.keys())
-
+            new=set()
+            for i in range(len(leaves)):
+                leaf=leaves.popleft()
+                for neighbor in tree[leaf]:
+                    if neighbor in new: continue
+                    tree[neighbor].remove(leaf)
+                    if len(tree[neighbor])==1:
+                        leaves += [neighbor]
+                        new.add(neighbor)
+                tree.pop(leaf)
+                remaining -= 1
+                
+        if not edges: return [0]
+        return list(leaves)
                 
             
 
