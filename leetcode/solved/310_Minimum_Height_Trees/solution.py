@@ -47,15 +47,12 @@ class Solution:
         
         remaining = n
         while remaining > 2:
-            new=set()
             for i in range(len(leaves)):
                 leaf=leaves.popleft()
                 for neighbor in tree[leaf]:
-                    if neighbor in new: continue
                     tree[neighbor].remove(leaf)
                     if len(tree[neighbor])==1:
                         leaves += [neighbor]
-                        new.add(neighbor)
                 tree.pop(leaf)
                 remaining -= 1
                 
