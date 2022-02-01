@@ -28,6 +28,29 @@ from typing import List
 from collections import Counter
 
 
+## As a starter, we can approach with DP knapsack problem solution.
+#class Solution:
+#    def canPartition(self, nums: List[int]) -> bool:
+#        # or we can approach as DP knapsack problem solution
+#        s = sum(nums)
+#        if s % 2 or len(nums) == 1:
+#            return False
+#
+#        nums.sort(reverse=True)
+#
+#        @lru_cache(None)
+#        def napsack(i, s):
+#            if s == 0:
+#                return True
+#            if s < 0 or i == len(nums):
+#                return False
+#            # simply advance, or add nums[i] to the partition
+#            return napsack(i+1, s - nums[i]) or napsack(i+1, s)
+#
+#        return napsack(0, s//2)
+
+
+## An optimized solution
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         total = sum(nums)
