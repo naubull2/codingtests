@@ -33,13 +33,14 @@ import pytest
 
 class Solution:
     def findComplement(self, num: int) -> int:
-        bits = []
-        while num:
-            bits.append((num & 1)^1)
-            num = num >> 1
-        if not bits:
-            return 1
-        return int(''.join([str(b) for b in bits][::-1]), 2) 
+        output = 0
+        base = 1
+        for b in bin(num)[2:][::-1]:
+            output += base * (int(b)^1)
+            base *= 2
+        return output
+            
+            
          
 
 
