@@ -27,44 +27,35 @@ from functools import lru_cache
 
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        # find all palindrome substrings
-        # N**2 method : for all partitions, check if palindrome
         def palindrome(s):
-            mid = len(s)//2
-            if len(s) % 2 == 0:
-                for i in range(0, mid+1):
-                    if s[i] != s[-i+1]:
-                        return False
-            else:
-                for i in range(0, mid):
-                    if s[i] != s[-i+1]:
-                        return False
-            return True 
-
-        @lru_cache(None)
+            for i in range(len(s)//2):
+                if s[i] != s[len(s)-1-i]:
+                    return False
+            return True
+        
+        # custom cache works much faster than lru_cache (functools)
+        cache = {}
+        
         def subset(s):
-            # subsets that must divide at i
+            if s in cache:
+                return cache[s]
             if not s:
                 return []
             elif len(s) == 1:
-                return [[s[0]]]
+                cache[s] = [[s[0]]]
+                return cache[s]
             else:
                 candidates = []
                 if palindrome(s):
                     candidates.append([s])
 
                 for i in range(1, len(s)):
-                    part_a = subset(s[:i])
-                    part_b = subset(s[i:])
-                    for a in part_a:
-                        for b in part_b:
-                            if a + b not in candidates:
-                                candidates.append(a + b)
-                #print(f'recur from {s}: {len(candidates)}')
+                    if palindrome(s[:i]):
+                        candidates.extend([[s[:i]] + l for l in subset(s[i:])])
+                cache[s] = candidates
                 return candidates
 
-        return subset(s) 
-            
+        return subset(s)
 
 
 @pytest.mark.parametrize('s, output', [
@@ -77,5 +68,4 @@ def test(s, output):
     assert sorted(Solution().partition(s)) == sorted(output)
 
 if __name__ == '__main__':
-    #Solution().partition("fffffffffffffff")
     sys.exit(pytest.main(['-s', '-v'] + sys.argv))
