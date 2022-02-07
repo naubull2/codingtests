@@ -1,0 +1,81 @@
+# coding: utf-8
+# Copyright © 2021 naubull2 <naubull2@gmail.com>
+#
+# Distributed under terms of the MIT license.
+
+"""
+Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.
+
+A palindrome string is a string that reads the same backward as forward.
+
+Example 1:
+Input: s = "aab"
+Output: [["a","a","b"],["aa","b"]]
+Example 2:
+Input: s = "a"
+Output: [["a"]]
+
+Constraints:
+
+	1 <= s.length <= 16
+	s contains only lowercase English letters.
+"""
+import pytest
+from typing import List
+from functools import lru_cache
+
+
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        # find all palindrome substrings
+        # N**2 method : for all partitions, check if palindrome
+        def palindrome(s):
+            mid = len(s)//2
+            if len(s) % 2 == 0:
+                for i in range(0, mid+1):
+                    if s[i] != s[-i+1]:
+                        return False
+            else:
+                for i in range(0, mid):
+                    if s[i] != s[-i+1]:
+                        return False
+            return True 
+
+        @lru_cache(None)
+        def subset(s):
+            # subsets that must divide at i
+            if not s:
+                return []
+            elif len(s) == 1:
+                return [[s[0]]]
+            else:
+                candidates = []
+                if palindrome(s):
+                    candidates.append([s])
+
+                for i in range(1, len(s)):
+                    part_a = subset(s[:i])
+                    part_b = subset(s[i:])
+                    for a in part_a:
+                        for b in part_b:
+                            if a + b not in candidates:
+                                candidates.append(a + b)
+                #print(f'recur from {s}: {len(candidates)}')
+                return candidates
+
+        return subset(s) 
+            
+
+
+@pytest.mark.parametrize('s, output', [
+    ('aab', [['a', 'a', 'b'], ['aa', 'b']]),
+    ('a', [['a']]),
+    ('aabaa', [['a', 'a', 'b', 'a', 'a'], ['a', 'a', 'b', 'aa'], ['aa', 'b', 'a', 'a'], ['aa', 'b', 'aa'], ['a', 'aba', 'a'], ['aabaa']]),
+    ('ffff', [['ffff'], ['f', 'fff'], ['f', 'f', 'ff'], ['f', 'f', 'f', 'f'], ['f', 'ff', 'f'], ['ff', 'ff'], ['ff', 'f', 'f'], ['fff', 'f']])
+])
+def test(s, output):
+    assert sorted(Solution().partition(s)) == sorted(output)
+
+if __name__ == '__main__':
+    #Solution().partition("fffffffffffffff")
+    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
