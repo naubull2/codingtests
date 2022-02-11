@@ -4,4 +4,6 @@
   then iterate through locations, droping first, then picking up.
   Finally, check the validity of such schedule. 
 
-> Time : O(N) , Space : O(N)
+  - caveat : sorting would require nlogn... so it's not really an O(N) solution
+
+> Time : O(NlogN) , Space : O(N)
