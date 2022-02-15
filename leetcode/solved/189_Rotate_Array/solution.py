@@ -45,18 +45,13 @@ class Solution:
         """
         
         # 1. simple pop -> insert operation
-        ''' move one element at a time, uses O(1) space, but runs in O(N)
         while k:
             p = nums.pop()
             nums.insert(0, p)
             k -= 1
-        ''' 
         
         
         # 2. buffer insert -> may fail when K is larger than the list size
-        ''' compute shift position then, batch transposition list slice
-        Would use O(N) space, but runs real quick
-        
         n = len(nums)
         shift = k % n
         if shift:
@@ -64,25 +59,45 @@ class Solution:
             while shift:
                 nums.pop()
                 shift -= 1
-        '''
         
         # 3. combine 1 & 2 to improve 1's speed, cutting through redundant full rotations
-        '''
         shift = k % len(nums)
         while shift:
             p = nums.pop()
             nums.insert(0, p)
             shift -= 1
-        '''
         
         # 4. improve 2's approach by deallocating the trailing shift in batch
         shift = k % len(nums)
         if shift:
             nums[0:0] = nums[-shift:]
             del nums[-shift:]
-        
-    
 
+        # 5. rather cheap, but using language specific feature, best optimized code
+        k = k % len(nums)
+        if not k:
+            return
+        nums[:] = nums[-k:] + nums[:-k]
+
+
+        # 6. swap N into it's place
+        N = len(nums)
+        shift = k % N
+        if not shift: return
+        
+        cnt, i = 0, 0
+        while cnt < N:
+            init, num = i, nums[i]
+            while True: # k mod N loop
+                next_pos = (i+shift) % N
+                t = nums[next_pos]
+                nums[next_pos] = num
+                num = t
+                i = next_pos
+                cnt += 1
+                if i == init: # loop again
+                    i+=1
+                    break
 
 @pytest.mark.parametrize('nums, k, expected', [
     ([1], 0, [1]),
