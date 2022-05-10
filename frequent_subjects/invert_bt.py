@@ -1,6 +1,7 @@
 from tree import build_tree, TreeNode, serialize_tree
+from collections import deque
 
-# invert given binary tree
+# invert given binary tree in-place
 
 root = build_tree([4, 2, 5, 1, None, 6])
 
@@ -14,6 +15,18 @@ def invertTree(root: TreeNode) -> None:
     invertTree(root.left)
     invertTree(root.right)
 
+
+def invertTree(root: TreeNode) -> None:
+    q = deque([root])
+    while q:
+        node = q.popleft()
+        if node is None:
+            continue
+        q.extend([node.left, node.right])
+        node.left, node.right = node.right, node.left
+
 print(serialize_tree(root))
 invertTree(root)
 print(serialize_tree(root))
+
+
