@@ -1,3 +1,5 @@
+import pdb
+
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -21,8 +23,7 @@ def build_tree(lst, constructor=TreeNode):
             queue.pop(0)
         if node:
             queue.append(node)
-        cur += 1
-        cur %= 2
+        cur = (cur + 1)%2
     return root
 
 # serialize into an array
