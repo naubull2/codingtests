@@ -1,0 +1,9 @@
+project_pid = "d5ed13m06mo2p"
+proj_name = "bmodel-test-deepspeed"
+proj_path = ""
+command = "train.py"
+dataset_path = "/corpus/corpus_iter2:/corpus"
+platform = "3.7.0"
+framework = "pytorch:1.8.0"
+arch = "volta"
+gpus = 4

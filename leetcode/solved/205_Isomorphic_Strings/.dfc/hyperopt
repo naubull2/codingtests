@@ -1,0 +1,20 @@
+{
+    "tag": "",
+    "mode": "max",
+    "method": "bo",
+    "params": [
+        {
+            "name": "learning-rate",
+            "type": "FLOAT",
+            "range": [
+                0,
+                1
+            ],
+            "values": [],
+            "categories": []
+        }
+    ],
+    "max_trial": 30,
+    "metric_tag": "val/acc",
+    "max_parallel_trial": 4
+}
