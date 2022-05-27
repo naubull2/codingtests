@@ -150,8 +150,11 @@ def convert_html_tags(text):
         text = pattern.sub(replacement, text)
 
     invalid_code_tag = re.compile(r'(([^\n])```)')
-    for p, w in re.findall(invalid_code_tag, text):
-        text = re.sub(p, f'{w}\n```', text)
+    try:
+        for p, w in re.findall(invalid_code_tag, text):
+            text = re.sub(p, f'{w}\n```', text)
+    except:
+        pass
     return text
 
 
