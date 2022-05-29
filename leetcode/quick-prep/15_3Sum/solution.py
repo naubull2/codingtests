@@ -30,49 +30,78 @@ from typing import List
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
+        # The basic logic would go about as the following
+        # handle empty/non-valid cases
         N = len(nums)
         if N < 3:
-            return []
+            return []  
+
+        # O(NlogN) : sorting to utilize i<j<k, nums[i]<nums[j]<nums[k] property
         nums.sort()
         ans = []
-        
-        # Instaed of using a hash table, we want to find a condition when duplicates occur
-        
-        # O(N^2)
+
+        # for each nums[i]
+        # 
+        # condition 1
+        # no duplicates allowed; for any <nums[i], nums[j], nums[k]>
+        # we can't have 
+        # ex. [1,1,1,2,2,3,4,4,5]
+        #      i     j     k
+        #        i   j     k
+        #          i   j     k
+        # if [1, 2, 4] is an answer,
+        # are all duplicates
+
+        # for the same nums[i] we skip (continue the loop)
+        # for the same pair (nums[j], nums[k]) we skip the loop as well
+        # j+1, k-1
+
+
+        # Run hand tests
+        # [-1, 0, -1, 2, 3, 4]
+        # sorted: [-1, -1, 0, 2, 3, 4]
+        #           i   j           k
+        # 
         last = None
-        pdb.set_trace()
         for i in range(N-2):
-            
+            # set j, k to be i+1, N-1  setting i as the left most element
             target = -nums[i]
-            if target == last:
+            if last == target: # same nums[i] is a duplicate
                 continue
             last = target
+
             j, k = i+1, N-1
-            # now we search space while
-            last2 = None
+            # 2-pointer approach (the same exact solution as in 2sum problem
+            last_pair = None
             while j < k:
                 sum_jk = nums[j] + nums[k]
-                if (nums[j], nums[k]) == last2:
+                if target == sum_jk:
+                    ans.append([nums[i],nums[j], nums[k]])
+                    last_pair = (nums[j], nums[k])
                     j += 1
                     k -= 1
-                    continue
-                elif sum_jk == target:
-                    ans.append([nums[i], nums[j], nums[k]])
-                    last2 = (nums[j], nums[k])
+                elif (nums[j], nums[k]) == last_pair:
                     j += 1
                     k -= 1
                 elif sum_jk < target:
                     j += 1
                 else:
                     k -= 1
-        return ans        
+        return ans
+
+
             
 
 @pytest.mark.parametrize('nums, ans', [
-    ([0,0,0,0], [[0,0,0]])
+    ([0,0,0,0], [[0,0,0]]),
+    ([-1, 0, 1, 2, -1, -4], [[-1,0,1], [-1,-1,2]])
 ])
 def test(nums, ans):
-    assert ans == Solution().threeSum(nums)
+    sol = Solution().threeSum(nums)
+    sol.sort(key=lambda x: sorted(x))
+    ans.sort(key=lambda x: sorted(x))
+    for s, a in zip(sol, ans):
+        assert s == a
 
 if __name__ == '__main__':
     sys.exit(pytest.main(['-s', '-v'] + sys.argv))
