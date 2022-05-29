@@ -37,45 +37,27 @@ from typing import List
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        left, right = 0, len(nums)-1
-        return self.bsearch(nums, left, right, target)
-            
-    
-    def bsearch(self, nums, left, right, target):
-        # handle terminal & edge cases 
-        if left >= right:
-            if nums[left] == target:
-                return left
-            elif nums[right] == target:
-                return right
-            return -1
+        l, r = 0, len(nums)-1
+        # must include l=r for arrays like [1] - single element, we still need to check
+        while l <= r:
+            mid = (l+r)//2
+            if nums[mid] == target:
+                return mid
 
-        mid = (left + right) // 2
-        if nums[mid] == target:
-            return mid
-        elif mid == left and nums[right] == target:
-            return right
-
-        # Other standard cases
-        pivot = 0 # no rotation
-        if nums[left] > nums[right]:
-            if nums[mid] < nums[right]:
-                pivot = -1
+            # We are at left sorted portion
+            if nums[l] <= nums[mid]:
+                if target > nums[mid] or target < nums[l]:
+                    l = mid + 1
+                else:
+                    r = mid - 1
+            # right sorted portion
             else:
-                pivot = 1
-
-        if nums[mid] > target:
-            # edge
-            if nums[left] > target and pivot == 1:
-                return self.bsearch(nums, mid+1, right, target)
-            # else
-            return self.bsearch(nums, left, mid-1, target)
-        else:
-            # edge
-            if nums[right] < target and pivot == -1:
-                return self.bsearch(nums, left, mid-1, target)
-            # else
-            return self.bsearch(nums, mid+1, right, target)
+                if target < nums[mid] or target > nums[r]:
+                    r = mid -1
+                else:
+                    l = mid + 1
+        return -1
+            
 
 
 @pytest.mark.parametrize('nums, target, expected', [
