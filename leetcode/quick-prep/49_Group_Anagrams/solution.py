@@ -30,7 +30,7 @@ import pytest
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         def gen_key(st):
-            return ''.join(sorted(st))
+            return "".join(sorted(st))
 
         groups = dict()
         for s in strs:
@@ -39,10 +39,10 @@ class Solution:
         return groups.values()
 
 
-@pytest.mark.parametrize('', [
-])
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

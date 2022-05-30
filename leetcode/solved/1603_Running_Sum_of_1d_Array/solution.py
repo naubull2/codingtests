@@ -37,17 +37,21 @@ from typing import List
 class Solution:
     def runningSum(self, nums: List[int]) -> List[int]:
         for i in range(1, len(nums)):
-            nums[i] += nums[i-1]
+            nums[i] += nums[i - 1]
         return nums
 
 
-@pytest.mark.parametrize('nums, expected', [
-    ([1,2,3,4], [1,3,6,10]),
-    ([1,1,1,1,1], [1,2,3,4,5]),
-    ([3,1,2,10,1], [3,4,6,16,17])
-])
+@pytest.mark.parametrize(
+    "nums, expected",
+    [
+        ([1, 2, 3, 4], [1, 3, 6, 10]),
+        ([1, 1, 1, 1, 1], [1, 2, 3, 4, 5]),
+        ([3, 1, 2, 10, 1], [3, 4, 6, 16, 17]),
+    ],
+)
 def test(nums, expected):
     assert Solution().runningSum(nums) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

@@ -45,17 +45,20 @@ class Solution:
             else:
                 leftover.append(n1)
 
-        return [pairs[n2].pop() if pairs[n2] else leftover.pop() 
-                for n2 in nums2]
+        return [pairs[n2].pop() if pairs[n2] else leftover.pop() for n2 in nums2]
 
 
-@pytest.mark.parametrize('num1, num2, expected', [
-  ([2,7,11,15], [1,10,4,11], [2,11,7,15]),
-  ([12,24,8,32], [13,25,32,11], [24,32,8,12]),
-  ([2,0,4,1,2], [1,3,0,0,2], [2,0,2,1,4])
-])
+@pytest.mark.parametrize(
+    "num1, num2, expected",
+    [
+        ([2, 7, 11, 15], [1, 10, 4, 11], [2, 11, 7, 15]),
+        ([12, 24, 8, 32], [13, 25, 32, 11], [24, 32, 8, 12]),
+        ([2, 0, 4, 1, 2], [1, 3, 0, 0, 2], [2, 0, 2, 1, 4]),
+    ],
+)
 def test(num1, num2, expected):
     assert Solution().advantageCount(num1, num2) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

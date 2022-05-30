@@ -43,20 +43,16 @@ class Solution:
         i = 0
         for j in range(len(s)):
             if s[j] in char2idx:
-                i = max(i, char2idx[s[j]]+1)
-            maxLen = max(maxLen, j-i+1)
+                i = max(i, char2idx[s[j]] + 1)
+            maxLen = max(maxLen, j - i + 1)
             char2idx[s[j]] = j
         return maxLen
 
 
-
-@pytest.mark.parametrize('s, n', [
-    ('abcabcbb', 3),
-    ('bbbbb', 1),
-    ('pwwkew', 3)
-])
+@pytest.mark.parametrize("s, n", [("abcabcbb", 3), ("bbbbb", 1), ("pwwkew", 3)])
 def test(s, n):
     assert Solution().lengthOfLongestSubstring(s) == n
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

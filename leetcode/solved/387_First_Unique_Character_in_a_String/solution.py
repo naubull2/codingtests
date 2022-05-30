@@ -24,22 +24,20 @@ Constraints:
 import pytest
 from collections import Counter
 
+
 class Solution:
     def firstUniqChar(self, s: str) -> int:
-        cnts = Counter(s) # O(N)
-        for i, c in enumerate(s): # O(N)
+        cnts = Counter(s)  # O(N)
+        for i, c in enumerate(s):  # O(N)
             if cnts[c] == 1:
                 return i
         return -1
 
 
-@pytest.mark.parametrize('s, idx', [
-    ('leetcode', 0),
-    ('loveleetcode', 2),
-    ('aabb', -1)
-])
+@pytest.mark.parametrize("s, idx", [("leetcode", 0), ("loveleetcode", 2), ("aabb", -1)])
 def test(s, idx):
     assert idx == Solution().firstUniqChar(s)
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

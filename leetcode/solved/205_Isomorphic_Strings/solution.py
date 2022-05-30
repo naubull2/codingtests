@@ -48,15 +48,19 @@ class Solution:
         return True
 
 
-@pytest.mark.parametrize('s, t, isTrue', [
-    ('egg', 'add', True),
-    ('badc', 'baba', False),
-    ('paper', 'title', True),
-    ('cutter', 'putter', True),
-    ('map', 'cart', False)
-])
+@pytest.mark.parametrize(
+    "s, t, isTrue",
+    [
+        ("egg", "add", True),
+        ("badc", "baba", False),
+        ("paper", "title", True),
+        ("cutter", "putter", True),
+        ("map", "cart", False),
+    ],
+)
 def test(s, t, isTrue):
     assert isTrue == Solution().isIsomorphic(s, t)
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

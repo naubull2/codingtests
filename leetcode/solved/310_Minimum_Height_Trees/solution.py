@@ -40,36 +40,39 @@ from typing import List
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
         tree = defaultdict(set)
-        for u,v in edges:
+        for u, v in edges:
             tree[u].add(v)
             tree[v].add(u)
-        leaves = deque([i for i in range(n) if len(tree[i])==1])
-        
+        leaves = deque([i for i in range(n) if len(tree[i]) == 1])
+
         remaining = n
         while remaining > 2:
             for i in range(len(leaves)):
-                leaf=leaves.popleft()
+                leaf = leaves.popleft()
                 for neighbor in tree[leaf]:
                     tree[neighbor].remove(leaf)
-                    if len(tree[neighbor])==1:
+                    if len(tree[neighbor]) == 1:
                         leaves += [neighbor]
                 tree.pop(leaf)
                 remaining -= 1
-                
-        if not edges: return [0]
+
+        if not edges:
+            return [0]
         return list(leaves)
-                
-            
 
 
-@pytest.mark.parametrize('n, edges, output', [
-    (1, [], [0]),
-    (4, [[1,0],[1,2],[1,3]], [1]),
-    (6, [[3,0],[3,1],[3,2],[3,4],[5,4]], [3, 4]),
-    (8, [[0,1],[1,2],[2,3],[0,4],[4,5],[4,6],[6,7]], [0])
-])
+@pytest.mark.parametrize(
+    "n, edges, output",
+    [
+        (1, [], [0]),
+        (4, [[1, 0], [1, 2], [1, 3]], [1]),
+        (6, [[3, 0], [3, 1], [3, 2], [3, 4], [5, 4]], [3, 4]),
+        (8, [[0, 1], [1, 2], [2, 3], [0, 4], [4, 5], [4, 6], [6, 7]], [0]),
+    ],
+)
 def test(n, edges, output):
     assert Solution().findMinHeightTrees(n, edges) == output
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

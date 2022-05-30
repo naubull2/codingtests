@@ -37,7 +37,7 @@ class Solution:
         nums.sort()
         diff = inf
         for i, n in enumerate(nums):
-            lo, hi = i+1, len(nums)-1
+            lo, hi = i + 1, len(nums) - 1
             while lo < hi:
                 tsum = n + nums[lo] + nums[hi]
                 cur_diff = target - tsum
@@ -50,14 +50,12 @@ class Solution:
                 if diff == 0:
                     break
         return target - diff
-                                
 
 
-@pytest.mark.parametrize('nums, target, expect', [
-    ([-1, 2, 1, -4], 1, 2)
-])
+@pytest.mark.parametrize("nums, target, expect", [([-1, 2, 1, -4], 1, 2)])
 def test(nums, target, expect):
     assert Solution().threeSumClosest(nums, target) == expect
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

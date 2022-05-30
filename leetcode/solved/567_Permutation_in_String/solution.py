@@ -28,43 +28,48 @@ import pytest
 
 from collections import Counter, deque
 
+
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
         count = Counter(s1)
         offset = {key: deque() for key in count.keys()}
-        i = 0 # starting offset
+        i = 0  # starting offset
         for j, c in enumerate(list(s2)):
             if c not in count:
-                for char in s2[i:j+1]:
+                for char in s2[i : j + 1]:
                     if char in count:
                         count[char] += 1
                         offset[char].popleft()
-                i = j+1
+                i = j + 1
             else:
                 offset[c].append(j)
                 if not count[c]:
                     last = offset[c].popleft()
-                    for char in s2[i:last+1]:
+                    for char in s2[i : last + 1]:
                         if char in count:
                             count[char] += 1
-                            if char != c and offset[char]: offset[char].popleft()
-                    i = last+1
+                            if char != c and offset[char]:
+                                offset[char].popleft()
+                    i = last + 1
                 count[c] -= 1
             if all(v == 0 for v in count.values()):
                 return True
         return False
 
 
-@pytest.mark.parametrize('s1, s2, output', [
-    ('abc', 'bbbca', True),
-    ('ab', 'eidbooaooo', False),
-    ('ab', 'eidbaoaooo', True),
-    ('rmqqh', 'nrsqrqhrymf', False),
-    ("hello", "ooolleoooleh", False)
-
-])
+@pytest.mark.parametrize(
+    "s1, s2, output",
+    [
+        ("abc", "bbbca", True),
+        ("ab", "eidbooaooo", False),
+        ("ab", "eidbaoaooo", True),
+        ("rmqqh", "nrsqrqhrymf", False),
+        ("hello", "ooolleoooleh", False),
+    ],
+)
 def test(s1, s2, output):
     assert output == Solution().checkInclusion(s1, s2)
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

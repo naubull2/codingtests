@@ -36,10 +36,11 @@ class Solution:
             xor ^= n
         return xor
 
-@pytest.mark.parametrize('', [
-])
+
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

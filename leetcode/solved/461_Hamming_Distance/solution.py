@@ -33,19 +33,18 @@ import pytest
 class Solution:
     def hammingDistance(self, x: int, y: int) -> int:
         # Either composing a list of binary bits or simple bit operation both would work
-        z = x^y
+        z = x ^ y
         count = 0
         while z > 0:
-            count += z%2
+            count += z % 2
             z //= 2
         return count
 
 
-@pytest.mark.parametrize('x, y, expected', [
-    (3, 1, 1)
-])
+@pytest.mark.parametrize("x, y, expected", [(3, 1, 1)])
 def test(x, y, expected):
     assert Solution().hammingDistance(x, y) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

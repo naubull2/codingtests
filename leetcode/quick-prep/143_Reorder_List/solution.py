@@ -63,12 +63,12 @@ class Solution:
             first.next = second
             second.next = tmp1
             first, second = tmp1, tmp2
-        
 
-@pytest.mark.parametrize('', [
-])
+
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

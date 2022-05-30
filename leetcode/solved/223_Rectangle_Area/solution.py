@@ -26,8 +26,19 @@ Constraints:
 """
 import pytest
 
+
 class Solution:
-    def computeArea(self, ax1: int, ay1: int, ax2: int, ay2: int, bx1: int, by1: int, bx2: int, by2: int) -> int:
+    def computeArea(
+        self,
+        ax1: int,
+        ay1: int,
+        ax2: int,
+        ay2: int,
+        bx1: int,
+        by1: int,
+        bx2: int,
+        by2: int,
+    ) -> int:
         def get_overlap(range1, range2):
             if range1[0] < range2[0]:
                 diff = range1[1] - range2[0]
@@ -38,23 +49,22 @@ class Solution:
                 diff = range2[1] - range1[0]
                 if range1[1] < range2[1]:
                     diff = range1[1] - range1[0]
-                
+
             if diff > 0:
                 return diff
             return 0
-        
+
         x_overlap = get_overlap([ax1, ax2], [bx1, bx2])
         y_overlap = get_overlap([ay1, ay2], [by1, by2])
         intersection = x_overlap * y_overlap
-        
-        return (ax2-ax1)*(ay2-ay1) + (bx2-bx1)*(by2-by1) - intersection
+
+        return (ax2 - ax1) * (ay2 - ay1) + (bx2 - bx1) * (by2 - by1) - intersection
 
 
-@pytest.mark.parametrize('points, area', [
-    ([0,0,0,0,-1,-1,1,1], 4)
-])
+@pytest.mark.parametrize("points, area", [([0, 0, 0, 0, -1, -1, 1, 1], 4)])
 def test(points, area):
     assert Solution().computeArea(*points) == area
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

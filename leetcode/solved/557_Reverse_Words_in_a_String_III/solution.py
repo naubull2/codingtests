@@ -27,7 +27,7 @@ import pytest
 class Solution:
     def reverseWords(self, s: str) -> str:
         # direct manipulation using a stack
-        '''
+        """
         word = []
         output = []
         for c in list(s):
@@ -40,14 +40,14 @@ class Solution:
         while word:
             output.append(word.pop())
         return ''.join(output)
-        '''
-        
+        """
+
         # Or just keep the index of a word's starting point only, then reverse the string
         output = []
         w_i = 0
         word = False
         for i, c in enumerate(s):
-            if c != ' ':
+            if c != " ":
                 if not word:
                     w_i = i
                     word = True
@@ -59,15 +59,16 @@ class Solution:
                 word = False
         if word:
             output.append(s[w_i:][::-1])
-        return ''.join(output)
+        return "".join(output)
 
 
-@pytest.mark.parametrize('s, reversed', [
-    ("Let's take LeetCode contest", "s'teL ekat edoCteeL tsetnoc")
-])
+@pytest.mark.parametrize(
+    "s, reversed", [("Let's take LeetCode contest", "s'teL ekat edoCteeL tsetnoc")]
+)
 def test(s, reversed):
     assert reversed == Solution().reverseWords(s)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     Solution().reverseWords("Let's take LeetCode contest")
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

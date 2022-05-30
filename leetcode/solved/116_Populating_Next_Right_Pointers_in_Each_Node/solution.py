@@ -53,9 +53,10 @@ class Node:
         self.next = next
 """
 
+
 class Solution:
-    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-		# A simple recursive BFS using a double ended queue
+    def connect(self, root: "Optional[Node]") -> "Optional[Node]":
+        # A simple recursive BFS using a double ended queue
         def bfs(dq):
             next_level = deque()
             prev = None
@@ -67,14 +68,16 @@ class Solution:
                 prev = node
             if any(n is not None for n in next_level):
                 bfs(next_level)
+
         if root:
             bfs(deque([root]))
         return root
 
-@pytest.mark.parametrize('', [
-])
+
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

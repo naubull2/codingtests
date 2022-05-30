@@ -36,11 +36,11 @@ import pytest
 
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
-        ''' Simply using the constraint
+        """Simply using the constraint
         if n > 0 and 2**31 % n == 0:
             return True
         return False
-        '''
+        """
         if n < 1:
             return False
         b = 1
@@ -50,15 +50,13 @@ class Solution:
             return True
         return False
 
-@pytest.mark.parametrize('n, expected', [
-    (1, True),
-    (16, True),
-    (3, False),
-    (0, False),
-    (-16, False)
-])
+
+@pytest.mark.parametrize(
+    "n, expected", [(1, True), (16, True), (3, False), (0, False), (-16, False)]
+)
 def test(n, expected):
     assert Solution().isPowerOfTwo(n) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

@@ -35,6 +35,7 @@ from collections import deque
 #         self.left = left
 #         self.right = right
 
+
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         level = 0
@@ -44,16 +45,16 @@ class Solution:
         while depths:
             node, level = depths.popleft()
             if node.left:
-                depths.append((node.left, level+1))
+                depths.append((node.left, level + 1))
             if node.right:
-                depths.append((node.right, level+1))
+                depths.append((node.right, level + 1))
         return level
 
 
-@pytest.mark.parametrize('', [
-])
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

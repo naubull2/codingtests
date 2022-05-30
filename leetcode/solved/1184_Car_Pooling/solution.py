@@ -37,24 +37,24 @@ class Solution:
         locations = defaultdict(dict)
         for t in trips:
             num, pickup, drop = t[0], t[1], t[2]
-            locations[pickup]['up'] = locations[pickup].setdefault('up', 0) + num
-            locations[drop]['down'] = locations[drop].setdefault('down', 0) + num
-        
+            locations[pickup]["up"] = locations[pickup].setdefault("up", 0) + num
+            locations[drop]["down"] = locations[drop].setdefault("down", 0) + num
+
         # check validity
         cap = capacity
         for loc in sorted(locations.keys()):
             # unload first, then pickup
-            cap += locations[loc].get('down', 0) # may be empty if starting point
-            cap -= locations[loc].get('up', 0) # may be empty if final destination
+            cap += locations[loc].get("down", 0)  # may be empty if starting point
+            cap -= locations[loc].get("up", 0)  # may be empty if final destination
             if cap < 0:
                 return False
         return True
-            
 
-@pytest.mark.parametrize('', [
-])
+
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

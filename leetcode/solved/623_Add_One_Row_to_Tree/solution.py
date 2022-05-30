@@ -48,18 +48,18 @@ class TreeNode:
 def build_tree(nodes):
     root = TreeNode(nodes[0])
     queue = [root]
-    atts = ['left', 'right']
+    atts = ["left", "right"]
     cur = 0
     for x in nodes[1:]:
         node = TreeNode(x) if x is not None else None
         setattr(queue[0], atts[cur], node)
 
-        if cur: # right child done
+        if cur:  # right child done
             queue.pop(0)
 
         if node:
             queue.append(node)
-        
+
         cur += 1
         cur %= 2
     return root
@@ -67,9 +67,11 @@ def build_tree(nodes):
 
 def compare_tree(t1, t2):
     if t1 and t2:
-        return (t1.val == t2.val and
-                compare_tree(t1.left, t2.left) and
-                compare_tree(t1.right, t2.right))
+        return (
+            t1.val == t2.val
+            and compare_tree(t1.left, t2.left)
+            and compare_tree(t1.right, t2.right)
+        )
     elif not t1 and not t2:
         return True
     else:
@@ -80,20 +82,22 @@ class Solution:
     def addOneRow(self, root: TreeNode, val: int, depth: int) -> TreeNode:
         if depth == 1:
             return TreeNode(val=val, left=root)
-            
+
         # Collect all nodes at depth-1, do a BFS using a queue
         front = deque()
         front.append(root)
         breadth = len(front)
         level = 1
-        while level < depth-1:
+        while level < depth - 1:
             for _ in range(breadth):
                 node = front.popleft()
-                if node.left: front.append(node.left)
-                if node.right: front.append(node.right)
+                if node.left:
+                    front.append(node.left)
+                if node.right:
+                    front.append(node.right)
             breadth = len(front)
             level += 1
-            
+
         # now we have all depth-1 nodes in the queue
         for _ in range(len(front)):
             node = front.popleft()
@@ -102,15 +106,18 @@ class Solution:
         return root
 
 
-@pytest.mark.parametrize('nodes, val, depth, expected', [
-    ([4,2,6,3,1,5], 1, 2, [4,1,1,2,None,None,6,3,1,5]),
-    ([4,2,None,3,1], 1, 3, [4,2,None,1,1,3,None,None,1])
-])
+@pytest.mark.parametrize(
+    "nodes, val, depth, expected",
+    [
+        ([4, 2, 6, 3, 1, 5], 1, 2, [4, 1, 1, 2, None, None, 6, 3, 1, 5]),
+        ([4, 2, None, 3, 1], 1, 3, [4, 2, None, 1, 1, 3, None, None, 1]),
+    ],
+)
 def test(nodes, val, depth, expected):
     # build initial Tree
     root = build_tree(nodes)
     assert compare_tree(build_tree(expected), Solution().addOneRow(root, val, depth))
 
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

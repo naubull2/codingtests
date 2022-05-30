@@ -43,15 +43,15 @@ class WordFilter:
         for i, w in enumerate(words):
             if cnt[w] > 1:
                 cnt[w] -= 1
-                words[i] = ''
+                words[i] = ""
             else:
                 continue
-                
+
         self.ivt_prefix = dict()
         self.ivt_suffix = dict()
         for w_i, w in enumerate(words):
             if w:
-                for i in range(1, len(w)+1):
+                for i in range(1, len(w) + 1):
                     self.ivt_prefix.setdefault(w[:i], set()).add(w_i)
                     self.ivt_suffix.setdefault(w[-i:], set()).add(w_i)
 
@@ -60,7 +60,6 @@ class WordFilter:
         suffix_match = self.ivt_suffix.get(suffix, set())
         joint = prefix_match & suffix_match
         return max(joint)
-        
 
 
 # Your WordFilter object will be instantiated and called as such:
@@ -68,14 +67,22 @@ class WordFilter:
 # param_1 = obj.f(prefix,suffix)
 
 
-@pytest.mark.parametrize('commands, args, expected', [
-    (['WordFilter', 'f'], [[["apple"]],["a", "e"]], [None, 0]),
-    (['WordFilter', 'f'], [[["a","a","a","a","a","b","b","b","b","b"]], ["a", "a"]], [None, 4])
-])
+@pytest.mark.parametrize(
+    "commands, args, expected",
+    [
+        (["WordFilter", "f"], [[["apple"]], ["a", "e"]], [None, 0]),
+        (
+            ["WordFilter", "f"],
+            [[["a", "a", "a", "a", "a", "b", "b", "b", "b", "b"]], ["a", "a"]],
+            [None, 4],
+        ),
+    ],
+)
 def test(commands, args, expected):
     o = globals()[commands[0]](*args[0])
     for cmd, arg, exp in zip(commands[1:], args[1:], expected[1:]):
         assert exp == getattr(o, cmd)(*arg)
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

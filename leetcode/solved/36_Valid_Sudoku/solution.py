@@ -58,31 +58,35 @@ class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         # check 9 rows
         for row in board:
-            check = [0]*10
-            for cell in [int(v) for v in row if v != '.']:
+            check = [0] * 10
+            for cell in [int(v) for v in row if v != "."]:
                 if check[cell] == 1:
                     return False
                 else:
                     check[cell] = 1
         # check 9 columns
         for col_i in range(9):
-            check = [0]*10
-            for cell in [int(board[row_i][col_i]) for row_i in range(9) if board[row_i][col_i] != '.']:
+            check = [0] * 10
+            for cell in [
+                int(board[row_i][col_i])
+                for row_i in range(9)
+                if board[row_i][col_i] != "."
+            ]:
                 if check[cell] == 1:
                     return False
                 else:
                     check[cell] = 1
-            
+
         # check 9 sub-boxes
         # create a 3 x 3 loop where each slot will represent [0:3], [3:6], [6:9]
-        sub_ranges = [(0,3), (3,6),(6,9)]
+        sub_ranges = [(0, 3), (3, 6), (6, 9)]
         for row_range in sub_ranges:
-            for col_range in sub_ranges: # 9 sub boxes
-                check = [0]*10
-                for row in range(*row_range): # check sum within a sub box
+            for col_range in sub_ranges:  # 9 sub boxes
+                check = [0] * 10
+                for row in range(*row_range):  # check sum within a sub box
                     for col in range(*col_range):
                         cell = board[row][col]
-                        if cell == '.':
+                        if cell == ".":
                             continue
                         else:
                             cell = int(cell)
@@ -93,28 +97,42 @@ class Solution:
         return True
 
 
-@pytest.mark.parametrize('board, isValid', [
-    ([["5","3",".",".","7",".",".",".","."],
-      ["6",".",".","1","9","5",".",".","."],
-      [".","9","8",".",".",".",".","6","."],
-      ["8",".",".",".","6",".",".",".","3"],
-      ["4",".",".","8",".","3",".",".","1"],
-      ["7",".",".",".","2",".",".",".","6"],
-      [".","6",".",".",".",".","2","8","."],
-      [".",".",".","4","1","9",".",".","5"],
-      [".",".",".",".","8",".",".","7","9"]], True),
-    ([["8","3",".",".","7",".",".",".","."],
-      ["6",".",".","1","9","5",".",".","."],
-      [".","9","8",".",".",".",".","6","."],
-      ["8",".",".",".","6",".",".",".","3"],
-      ["4",".",".","8",".","3",".",".","1"],
-      ["7",".",".",".","2",".",".",".","6"],
-      [".","6",".",".",".",".","2","8","."],
-      [".",".",".","4","1","9",".",".","5"],
-      [".",".",".",".","8",".",".","7","9"]], False)
-])
+@pytest.mark.parametrize(
+    "board, isValid",
+    [
+        (
+            [
+                ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+                ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+                [".", "9", "8", ".", ".", ".", ".", "6", "."],
+                ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+                ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+                ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+                [".", "6", ".", ".", ".", ".", "2", "8", "."],
+                [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+                [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+            ],
+            True,
+        ),
+        (
+            [
+                ["8", "3", ".", ".", "7", ".", ".", ".", "."],
+                ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+                [".", "9", "8", ".", ".", ".", ".", "6", "."],
+                ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+                ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+                ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+                [".", "6", ".", ".", ".", ".", "2", "8", "."],
+                [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+                [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+            ],
+            False,
+        ),
+    ],
+)
 def test(board, isValid):
     assert Solution().isValidSudoku(board) == isValid
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

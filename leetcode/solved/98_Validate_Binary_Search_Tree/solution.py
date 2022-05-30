@@ -32,7 +32,8 @@ import math
 import sys
 import pytest
 from pathlib import Path
-sys.path.append(str(Path('__file__').absolute().parent.parent.parent))
+
+sys.path.append(str(Path("__file__").absolute().parent.parent.parent))
 from tree import TreeNode, build_tree, serialize_tree
 from typing import Optional
 
@@ -45,19 +46,21 @@ class Solution:
                 return True
             if node.val <= low or node.val >= high:
                 return False
-            
-            return (isRangeValidBST(node.left, low, node.val) 
-                    and isRangeValidBST(node.right, node.val, high))
-    
+
+            return isRangeValidBST(node.left, low, node.val) and isRangeValidBST(
+                node.right, node.val, high
+            )
+
         return isRangeValidBST(root, -math.inf, math.inf)
 
-@pytest.mark.parametrize('tree, isvalid', [
-    ([2, 1, 3], True),
-    ([5, 1, 4, None, None, 3, 6], False)
-])
+
+@pytest.mark.parametrize(
+    "tree, isvalid", [([2, 1, 3], True), ([5, 1, 4, None, None, 3, 6], False)]
+)
 def test(tree, isvalid):
     root = build_tree(tree)
     assert isvalid == Solution().isValidBST(root)
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

@@ -42,26 +42,28 @@ import pytest
 import pdb
 from typing import List
 import heapq
+
 # NOTE: min-heap we invert values to negatives to achieve max-heap
 # we can implement the above data structure as array, where left, right childs are accessed by 2k+1, 2k+2 (0 indexed arrays)
+
 
 class Solution:
     def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
         """Easy to understand but O(N**2)
         heap = [0] # initially max height is 0
-        
+
         coords = []
-        
+
         for l, r, h in buildings:
             coords.append((l, -h)) # -h represents start of building
             coords.append((r, h)) # +h represents end of building
-        
+
         coords.sort() # sort by x coord followed by y coord (height)
         result = []
 
         for coord, h in coords:
             prev_max = heap[0] # keep track of prev max to see whether there is any change due to new building's ending or starting
-            if h > 0: # if a building ends at this point 
+            if h > 0: # if a building ends at this point
                 heap.remove(-h) # we should remove it from heap  O(N)
                 heapify(heap)  # O(klogk)
             else:
@@ -72,7 +74,7 @@ class Solution:
 
         return result
         """
-        
+
         """Quite fuzzy, but runs crazy fast
         """
         N, hs = len(buildings), []
@@ -80,11 +82,11 @@ class Solution:
             # track i as building number
             hs.append((l, 0, -h, i))
             hs.append((r, 1, h, i))
-        hs.sort() 
-        alive = [False] * N # check if building is still there
-        
+        hs.sort()
+        alive = [False] * N  # check if building is still there
+
         res, heap, current_height = [], [], 0
-        for x, tp, h, i in hs: 
+        for x, tp, h, i in hs:
             if tp == 0:  # start of i-th building
                 heapq.heappush(heap, (h, i))
                 alive[i] = True
@@ -95,23 +97,30 @@ class Solution:
                 alive[i] = False
                 # remove any buildings that is already done : including current building
                 while heap and not alive[heap[0][1]]:
-                    heapq.heappop(heap)  
+                    heapq.heappop(heap)
                 if heap and -heap[0][0] < current_height:
                     current_height = -heap[0][0]
                     res.append([x, current_height])
                 elif not heap:
-                    current_height = 0 
+                    current_height = 0
                     res.append([x, current_height])
         return res
-        
 
-@pytest.mark.parametrize('input, output', [
-    ([[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]], [[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]),
-    ([[0,2,3],[2,5,3]], [[0,3], [5, 0]])
-])
+
+@pytest.mark.parametrize(
+    "input, output",
+    [
+        (
+            [[2, 9, 10], [3, 7, 15], [5, 12, 12], [15, 20, 10], [19, 24, 8]],
+            [[2, 10], [3, 15], [7, 12], [12, 0], [15, 10], [20, 8], [24, 0]],
+        ),
+        ([[0, 2, 3], [2, 5, 3]], [[0, 3], [5, 0]]),
+    ],
+)
 def test(input, output):
-    assert(Solution().getSkyline(input) == output)
+    assert Solution().getSkyline(input) == output
 
-if __name__ == '__main__':
-    print(Solution().getSkyline([[0,3,3],[1,5,3],[2,4,3],[3,7,3]]))
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    print(Solution().getSkyline([[0, 3, 3], [1, 5, 3], [2, 4, 3], [3, 7, 3]]))
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

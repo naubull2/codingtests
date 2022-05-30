@@ -83,8 +83,8 @@ import pytest
 
 from collections import defaultdict
 
-class UndergroundSystem:
 
+class UndergroundSystem:
     def __init__(self):
         self.user_table = defaultdict(list)
         self.course_table = defaultdict(list)
@@ -96,7 +96,7 @@ class UndergroundSystem:
     def checkOut(self, id: int, stationName: str, t: int) -> None:
         assert len(self.user_table[id]) == 1
         source = self.user_table[id].pop()
-        
+
         travel_t = t - source[1]
         course = f"{source[0]}_{stationName}"
         self.course_table[course].append(travel_t)
@@ -104,37 +104,105 @@ class UndergroundSystem:
     def getAverageTime(self, startStation: str, endStation: str) -> float:
         course = f"{startStation}_{endStation}"
         travel_ts = self.course_table[course]
-        return round(sum(travel_ts)/len(travel_ts), 5)
-        
+        return round(sum(travel_ts) / len(travel_ts), 5)
 
 
-@pytest.mark.parametrize('action, value, expected', [
-    (
-     ["UndergroundSystem","checkIn","checkIn","checkIn","checkOut","checkOut","checkOut","getAverageTime","getAverageTime","checkIn","getAverageTime","checkOut","getAverageTime"],
-     [[],[45,"Leyton",3],[32,"Paradise",8],[27,"Leyton",10],[45,"Waterloo",15],[27,"Waterloo",20],[32,"Cambridge",22],["Paradise","Cambridge"],["Leyton","Waterloo"],[10,"Leyton",24],["Leyton","Waterloo"],[10,"Waterloo",38],["Leyton","Waterloo"]],
-     [None,None,None,None,None,None,None,14.00000,11.00000,None,11.00000,None,12.00000]),
-    (
-     ["UndergroundSystem","checkIn","checkOut","getAverageTime","checkIn","checkOut","getAverageTime","checkIn","checkOut","getAverageTime"],
-     [[],[10,"Leyton",3],[10,"Paradise",8],["Leyton","Paradise"],[5,"Leyton",10],[5,"Paradise",16],["Leyton","Paradise"],[2,"Leyton",21],[2,"Paradise",30],["Leyton","Paradise"]],
-     [None,None,None,5.00000,None,None,5.50000,None,None,6.66667]
-    )
-])
+@pytest.mark.parametrize(
+    "action, value, expected",
+    [
+        (
+            [
+                "UndergroundSystem",
+                "checkIn",
+                "checkIn",
+                "checkIn",
+                "checkOut",
+                "checkOut",
+                "checkOut",
+                "getAverageTime",
+                "getAverageTime",
+                "checkIn",
+                "getAverageTime",
+                "checkOut",
+                "getAverageTime",
+            ],
+            [
+                [],
+                [45, "Leyton", 3],
+                [32, "Paradise", 8],
+                [27, "Leyton", 10],
+                [45, "Waterloo", 15],
+                [27, "Waterloo", 20],
+                [32, "Cambridge", 22],
+                ["Paradise", "Cambridge"],
+                ["Leyton", "Waterloo"],
+                [10, "Leyton", 24],
+                ["Leyton", "Waterloo"],
+                [10, "Waterloo", 38],
+                ["Leyton", "Waterloo"],
+            ],
+            [
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                14.00000,
+                11.00000,
+                None,
+                11.00000,
+                None,
+                12.00000,
+            ],
+        ),
+        (
+            [
+                "UndergroundSystem",
+                "checkIn",
+                "checkOut",
+                "getAverageTime",
+                "checkIn",
+                "checkOut",
+                "getAverageTime",
+                "checkIn",
+                "checkOut",
+                "getAverageTime",
+            ],
+            [
+                [],
+                [10, "Leyton", 3],
+                [10, "Paradise", 8],
+                ["Leyton", "Paradise"],
+                [5, "Leyton", 10],
+                [5, "Paradise", 16],
+                ["Leyton", "Paradise"],
+                [2, "Leyton", 21],
+                [2, "Paradise", 30],
+                ["Leyton", "Paradise"],
+            ],
+            [None, None, None, 5.00000, None, None, 5.50000, None, None, 6.66667],
+        ),
+    ],
+)
 def test(action, value, expected):
     print()
     outputs = []
     obj = None
     for act, values in zip(action, value):
-        if act == 'UndergroundSystem':
+        if act == "UndergroundSystem":
             obj = UndergroundSystem()
             outputs.append(None)
-        elif act == 'checkIn':
-            outputs.append(obj.checkIn(values[0],values[1],values[2]))
-        elif act == 'checkOut':
-            outputs.append(obj.checkOut(values[0],values[1],values[2]))
-        elif act == 'getAverageTime':
-            outputs.append(obj.getAverageTime(values[0],values[1]))
-    
+        elif act == "checkIn":
+            outputs.append(obj.checkIn(values[0], values[1], values[2]))
+        elif act == "checkOut":
+            outputs.append(obj.checkOut(values[0], values[1], values[2]))
+        elif act == "getAverageTime":
+            outputs.append(obj.getAverageTime(values[0], values[1]))
+
     assert expected == outputs
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

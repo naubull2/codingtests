@@ -43,12 +43,16 @@ class Solution:
         return res
 
 
-@pytest.mark.parametrize('str_n, result', [
-    ('11111111111111111111111111111101', 3221225471),
-    ('00000010100101000001111010011100', 964176192)
-])
+@pytest.mark.parametrize(
+    "str_n, result",
+    [
+        ("11111111111111111111111111111101", 3221225471),
+        ("00000010100101000001111010011100", 964176192),
+    ],
+)
 def test(str_n, result):
     assert Solution().reverseBits(int(str_n, base=2)) == result
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

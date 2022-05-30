@@ -31,7 +31,7 @@ import pytest
 class Solution:
     def maxPower(self, s: str) -> int:
         maximal = 1
-        curr, prev_c = 1, ''
+        curr, prev_c = 1, ""
         for i, c in enumerate(s):
             if prev_c == c:
                 curr += 1
@@ -42,13 +42,10 @@ class Solution:
         return maximal
 
 
-@pytest.mark.parametrize('string, power', [
-    ('leetcode', 2),
-    ('abbcccddddeeeeedcba', 5)
-])
+@pytest.mark.parametrize("string, power", [("leetcode", 2), ("abbcccddddeeeeedcba", 5)])
 def test(string, power):
     assert Solution().maxPower(string) == power
 
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

@@ -42,16 +42,16 @@ class Solution:
             if p < low:
                 low = p
             else:
-                profit = max(profit, p-low)
+                profit = max(profit, p - low)
         return profit
 
 
-@pytest.mark.parametrize('prices, profit', [
-    ([7,1,5,3,6,4], 5),
-    ([7,6,4,3,1], 0)
-])
+@pytest.mark.parametrize(
+    "prices, profit", [([7, 1, 5, 3, 6, 4], 5), ([7, 6, 4, 3, 1], 0)]
+)
 def test(prices, profit):
     assert profit == Solution().maxProfit(prices)
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

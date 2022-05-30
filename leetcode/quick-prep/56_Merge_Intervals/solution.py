@@ -43,12 +43,16 @@ class Solution:
         return merged
 
 
-@pytest.mark.parametrize('intervals, output', [
-    ([[1,3], [2,6], [8, 10], [15, 18]], [[1,6],[8,10],[15,18]]),
-    ([[1,4], [4,5]], [[1,5]])
-])
+@pytest.mark.parametrize(
+    "intervals, output",
+    [
+        ([[1, 3], [2, 6], [8, 10], [15, 18]], [[1, 6], [8, 10], [15, 18]]),
+        ([[1, 4], [4, 5]], [[1, 5]]),
+    ],
+)
 def test(intervals, output):
     assert Solution().merge(intervals) == output
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

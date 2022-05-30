@@ -39,7 +39,9 @@ from collections import deque
 
 
 class Solution:
-    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+    def floodFill(
+        self, image: List[List[int]], sr: int, sc: int, newColor: int
+    ) -> List[List[int]]:
         # BFS using a deque
         N, M = len(image), len(image[0])
         adj = deque()
@@ -47,24 +49,25 @@ class Solution:
         if color == newColor:
             return image
 
-        adj.append((sr,sc)) # insert pixel position as a tuple of indices
-        while adj: # keep expanding until no pixels are left to fill
+        adj.append((sr, sc))  # insert pixel position as a tuple of indices
+        while adj:  # keep expanding until no pixels are left to fill
             x, y = adj.popleft()
-            if image[x][y] == color: # prevent duplicates
+            if image[x][y] == color:  # prevent duplicates
                 image[x][y] = newColor
-                for p in [(x-1, y), (x+1, y), (x,y-1),(x,y+1)]:
+                for p in [(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)]:
                     if 0 <= p[0] < N and 0 <= p[1] < M and image[p[0]][p[1]] == color:
                         # valid range and the color is the same
                         adj.append(p)
         return image
-                        
 
-@pytest.mark.parametrize('image, sr, sc, color, output', [
-    ([[0,0,0],[0,1,1]], 1, 1, 1, [[0,0,0],[0,1,1]])
-])
+
+@pytest.mark.parametrize(
+    "image, sr, sc, color, output",
+    [([[0, 0, 0], [0, 1, 1]], 1, 1, 1, [[0, 0, 0], [0, 1, 1]])],
+)
 def test(image, sr, sc, color, output):
     assert Solution().floodFill(image, sr, sc, color) == output
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
 
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

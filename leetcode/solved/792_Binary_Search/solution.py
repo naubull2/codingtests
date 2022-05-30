@@ -35,32 +35,32 @@ import pdb
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        left, right = 0, len(nums)-1
-        mid = len(nums)//2
+        left, right = 0, len(nums) - 1
+        mid = len(nums) // 2
         while True:
             if nums[mid] == target:
                 return mid
             elif nums[mid] > target:
                 right = mid
-                mid = (left+right)//2
+                mid = (left + right) // 2
             else:
                 left = mid
-                mid = (left+right)//2
+                mid = (left + right) // 2
 
             if mid == left or mid == right or left >= right:
                 break
         if nums[mid] == target:
             return mid
-        if left+1 == right and nums[right] == target:
+        if left + 1 == right and nums[right] == target:
             return right
         return -1
 
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        low, high = 0, len(nums)-1
+        low, high = 0, len(nums) - 1
         while low <= high:
-            mid = low + (high-low) // 2
+            mid = low + (high - low) // 2
             if nums[mid] == target:
                 return mid
             if target < nums[mid]:
@@ -70,18 +70,22 @@ class Solution:
         if low == high and nums[low] == target:
             return low
         return -1
-                
 
-@pytest.mark.parametrize('nums, target, expected', [
-    ([-1,0,3,5,9,12], 9, 4),
-    ([-1,0,3,5,9,12], 2, -1),
-    ([2, 5], 5, 1),
-    ([-1, 0, 5], 5, 2),
-    ([-1, 0, 5], 2, -1)
-])
+
+@pytest.mark.parametrize(
+    "nums, target, expected",
+    [
+        ([-1, 0, 3, 5, 9, 12], 9, 4),
+        ([-1, 0, 3, 5, 9, 12], 2, -1),
+        ([2, 5], 5, 1),
+        ([-1, 0, 5], 5, 2),
+        ([-1, 0, 5], 2, -1),
+    ],
+)
 def test(nums, target, expected):
-    obj= Solution()
+    obj = Solution()
     assert obj.search(nums, target) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

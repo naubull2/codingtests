@@ -38,27 +38,29 @@ import pdb
 
 
 class Solution:
-    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+    def criticalConnections(
+        self, n: int, connections: List[List[int]]
+    ) -> List[List[int]]:
         critical_connections = []
         if not connections:
             return [[]]
-        
+
         # build graph
         graph = defaultdict(list)
         for u, v in connections:
             graph[u].append(v)
             graph[v].append(u)
 
-        disc = [-1]*len(graph)  # Node's first discovery time
-        low =  [None]*len(graph)  # Node's lowest subtree
+        disc = [-1] * len(graph)  # Node's first discovery time
+        low = [None] * len(graph)  # Node's lowest subtree
 
         def traverse_graph(node, parent, t):
             disc[node] = t
             low[node] = t
-             
+
             t += 1
             for c in sorted(graph[node]):
-                if disc[c] == -1: 
+                if disc[c] == -1:
                     traverse_graph(c, node, t)
                     t += 1
                     low[node] = min(low[c], low[node])
@@ -71,16 +73,17 @@ class Solution:
         t = 0
         traverse_graph(0, parent, t)
         return critical_connections
-                
 
 
-
-@pytest.mark.parametrize('network, expected', [
-    ([[0,1], [1,2], [2,3], [3,4], [3,5], [5,1]], [{0,1}, {3,4}]),
-    ([[0,1],[1,2],[2,0],[1,3]], [{1,3}]),
-    ([[0,1],[1,2],[2,0],[1,3], [3,4], [3,5], [4,5]], [{1,3}]),
-    ([[0,1],[1,2],[2,0],[1,3],[3,4],[4,5]], [{1,3}, {3,4}, {4,5}])
-])
+@pytest.mark.parametrize(
+    "network, expected",
+    [
+        ([[0, 1], [1, 2], [2, 3], [3, 4], [3, 5], [5, 1]], [{0, 1}, {3, 4}]),
+        ([[0, 1], [1, 2], [2, 0], [1, 3]], [{1, 3}]),
+        ([[0, 1], [1, 2], [2, 0], [1, 3], [3, 4], [3, 5], [4, 5]], [{1, 3}]),
+        ([[0, 1], [1, 2], [2, 0], [1, 3], [3, 4], [4, 5]], [{1, 3}, {3, 4}, {4, 5}]),
+    ],
+)
 def test(network, expected):
     output = Solution().criticalConnections(len(network), network)
     result = []
@@ -88,7 +91,7 @@ def test(network, expected):
     for pair in output:
         result.append(set(pair) in expected)
     assert all(result)
-    
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

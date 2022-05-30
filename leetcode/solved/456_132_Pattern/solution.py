@@ -36,12 +36,13 @@ import pytest
 import math
 from typing import List
 
+
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
         N = len(nums)
         if N < 3:
             return False
-        
+
         key = -math.inf
         dec_stack = []
         for n in reversed(nums):
@@ -56,11 +57,10 @@ class Solution:
         return False
 
 
-@pytest.mark.parametrize('nums, expected', [
-    ([3,1,4,2], True)
-])
+@pytest.mark.parametrize("nums, expected", [([3, 1, 4, 2], True)])
 def test(nums, expected):
     assert Solution().find132pattern(nums) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

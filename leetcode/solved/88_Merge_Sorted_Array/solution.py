@@ -51,31 +51,32 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        i, j = m-1, n-1  # compare from behind since we have buffer in the back
-        k = m+n-1
-        while j >= 0 and i >= 0: # do until either array is exhausted
+        i, j = m - 1, n - 1  # compare from behind since we have buffer in the back
+        k = m + n - 1
+        while j >= 0 and i >= 0:  # do until either array is exhausted
             if nums1[i] < nums2[j]:
                 nums1[k] = nums2[j]
-                j-=1
+                j -= 1
             else:
                 nums1[k] = nums1[i]
-                i-=1
-            k-=1
+                i -= 1
+            k -= 1
 
-        while j >= 0: # only check when nums2 is remaining: nums1 is already sorted
+        while j >= 0:  # only check when nums2 is remaining: nums1 is already sorted
             nums1[k] = nums2[j]
-            k-=1
-            j-=1
+            k -= 1
+            j -= 1
         return None
 
 
-@pytest.mark.parametrize('nums1, nums2, m, n, result', [
-    ([1,2,3,0,0,0], [2,5,6], 3, 3, [1,2,2,3,5,6]),
-    ([0], [1], 0, 1, [1])
-])
+@pytest.mark.parametrize(
+    "nums1, nums2, m, n, result",
+    [([1, 2, 3, 0, 0, 0], [2, 5, 6], 3, 3, [1, 2, 2, 3, 5, 6]), ([0], [1], 0, 1, [1])],
+)
 def test(nums1, nums2, m, n, result):
     Solution().merge(nums1, m, nums2, n)
     assert result == nums1
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

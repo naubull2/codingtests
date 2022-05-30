@@ -51,7 +51,7 @@ def pylist(h):
         l.append(h.next.val)
         h = h.next
     return l
-        
+
 
 class Solution:
     def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
@@ -67,13 +67,12 @@ class Solution:
         return head
 
 
-@pytest.mark.parametrize('node, expected', [
-    ([1,2,3,4,5], [3,4,5]),
-    ([1,2,3,4,5,6], [4,5,6])
-])
+@pytest.mark.parametrize(
+    "node, expected", [([1, 2, 3, 4, 5], [3, 4, 5]), ([1, 2, 3, 4, 5, 6], [4, 5, 6])]
+)
 def test(node, expected):
     assert pylist(Solution().middleNode(custom_list(node))) == expected
-    
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

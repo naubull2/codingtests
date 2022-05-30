@@ -47,23 +47,30 @@ class Solution:
         - swap diagonals (N-1)(N-1)/2 upper triangle
         """
         N = len(matrix)
-        M = N-1
+        M = N - 1
         for i in range(N):
             matrix[i] = matrix[i][::-1]
         for i in range(M):
-            for j in range(M-i):
-                matrix[i][j], matrix[M-j][M-i] = matrix[M-j][M-i], matrix[i][j]
+            for j in range(M - i):
+                matrix[i][j], matrix[M - j][M - i] = matrix[M - j][M - i], matrix[i][j]
 
 
-@pytest.mark.parametrize('input_matrix, expected', [
-  ([[1,2,3],[4,5,6],[7,8,9]], [[7,4,1],[8,5,2],[9,6,3]]),
-  ([[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]], [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]),
-  ([[1]], [[1]]),
-  ([[1,2],[3,4]], [[3,1],[4,2]])
-])
+@pytest.mark.parametrize(
+    "input_matrix, expected",
+    [
+        ([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[7, 4, 1], [8, 5, 2], [9, 6, 3]]),
+        (
+            [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]],
+            [[15, 13, 2, 5], [14, 3, 4, 1], [12, 6, 8, 9], [16, 7, 10, 11]],
+        ),
+        ([[1]], [[1]]),
+        ([[1, 2], [3, 4]], [[3, 1], [4, 2]]),
+    ],
+)
 def test(input_matrix, expected):
     Solution().rotate(input_matrix)
     assert input_matrix == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

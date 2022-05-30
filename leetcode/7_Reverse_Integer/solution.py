@@ -38,14 +38,14 @@ class Solution:
         while div:
             div, mod = divmod(div, 10)
             digits.append(mod)
-    
-        INTMAX = pow(2, 31)-1 if sign > 0 else pow(2, 31)
-        
+
+        INTMAX = pow(2, 31) - 1 if sign > 0 else pow(2, 31)
+
         ans = 0
         scale = 1
         while digits:
             d = digits.pop()
-            if d > (INTMAX - ans)/scale:
+            if d > (INTMAX - ans) / scale:
                 # overflow
                 return 0
             ans = scale * d + ans
@@ -53,13 +53,10 @@ class Solution:
         return sign * ans
 
 
-@pytest.mark.parametrize('integer, result', [
-    (123, 321),
-    (-123, -321),
-    (120, 21)
-])
+@pytest.mark.parametrize("integer, result", [(123, 321), (-123, -321), (120, 21)])
 def test(integer, result):
     assert Solution().reverse(integer) == result
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

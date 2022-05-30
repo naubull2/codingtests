@@ -34,20 +34,19 @@ class Solution:
     def countSubstrings(self, s: str) -> int:
         def expand(i, j, s):
             cnt = 0
-            while i>=0 and j < len(s) and s[i] == s[j]:
-                i-=1
-                j+=1
-                cnt +=1
+            while i >= 0 and j < len(s) and s[i] == s[j]:
+                i -= 1
+                j += 1
+                cnt += 1
             return cnt
-        return sum([expand(i, i, s) + expand(i, i+1, s) for i in range(len(s))])
+
+        return sum([expand(i, i, s) + expand(i, i + 1, s) for i in range(len(s))])
 
 
-@pytest.mark.parametrize('string, count', [
-    ('aaa', 6),
-    ('abc', 3)
-])
+@pytest.mark.parametrize("string, count", [("aaa", 6), ("abc", 3)])
 def test(string, count):
     assert Solution().countSubstrings(string) == count
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

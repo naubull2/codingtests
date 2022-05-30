@@ -45,7 +45,7 @@ from math import factorial as fact
 
 
 # As a mathematical solution.
-#class Solution:
+# class Solution:
 #    def uniquePaths(self, m: int, n: int) -> int:
 #        M, N = m-1, n-1
 #        return fact(M+N)//(fact(M) * fact(N))
@@ -54,23 +54,20 @@ from math import factorial as fact
 # As a dynamic programming solution.
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        dp = [[0]*n]*m
+        dp = [[0] * n] * m
         for i in range(0, m):
             for j in range(0, n):
                 if not i or not j:
                     dp[i][j] = 1
                 else:
-                    dp[i][j] = dp[i-1][j] + dp[i][j-1]
-        return dp[-1][-1] 
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        return dp[-1][-1]
 
 
-
-@pytest.mark.parametrize('m, n, output', [
-    (3, 7, 28),
-    (3, 2, 3)
-])
+@pytest.mark.parametrize("m, n, output", [(3, 7, 28), (3, 2, 3)])
 def test(m, n, output):
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

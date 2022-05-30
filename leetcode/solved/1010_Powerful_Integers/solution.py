@@ -58,13 +58,17 @@ class Solution:
         return list(powerful)
 
 
-@pytest.mark.parametrize('x, y, bound, expected', [
-    (2, 3, 10, [2,3,4,5,7,9,10]),
-    (3, 5, 15, [2,4,6,8,10,14]),
-    (2, 1, 10, [2,3,5,9])
-])
+@pytest.mark.parametrize(
+    "x, y, bound, expected",
+    [
+        (2, 3, 10, [2, 3, 4, 5, 7, 9, 10]),
+        (3, 5, 15, [2, 4, 6, 8, 10, 14]),
+        (2, 1, 10, [2, 3, 5, 9]),
+    ],
+)
 def test(x, y, bound, expected):
     assert set(Solution().powerfulIntegers(x, y, bound)) == set(expected)
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

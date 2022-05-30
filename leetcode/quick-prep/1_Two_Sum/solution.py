@@ -44,7 +44,7 @@ class Solution:
         # or just use a hash map of index
         getIndex = dict()
         for i, n in enumerate(nums):
-            complement = target - n 
+            complement = target - n
             j = getIndex.get(complement, -1)
             if j >= 0 and i != j:
                 return (i, j)
@@ -53,10 +53,10 @@ class Solution:
         # It's guaranteed that a unique answer exsits
 
 
-@pytest.mark.parametrize('', [
-])
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

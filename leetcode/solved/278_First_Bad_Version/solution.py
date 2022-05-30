@@ -38,32 +38,30 @@ def isBadVersion(version: int, bad: int) -> bool:
         return True
     return False
 
+
 class Solution:
     def firstBadVersion(self, n: int, bad: int) -> int:
         # Binary search into the array of list(range(n))
         low, high = 1, n
         while low < high:
-            mid = low + (high - low)//2
+            mid = low + (high - low) // 2
             isbad = isBadVersion(mid, bad)
             if isbad:
-                if isBadVersion(max(1, mid-1), bad):
+                if isBadVersion(max(1, mid - 1), bad):
                     # search left half
                     high = mid - 1
                 else:
                     # it's bad and it's first
                     return mid
             else:
-                low = mid + 1            
+                low = mid + 1
         return low
 
 
-@pytest.mark.parametrize('n, bad', [
-    (5, 4),
-    (1, 1)
-])
+@pytest.mark.parametrize("n, bad", [(5, 4), (1, 1)])
 def test(n, bad):
     assert Solution().firstBadVersion(n, bad) == bad
-    
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

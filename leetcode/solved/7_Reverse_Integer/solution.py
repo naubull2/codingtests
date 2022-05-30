@@ -38,8 +38,8 @@ class Solution:
         """
         sign = -1 if x < 0 else 1
 
-        intmax = 2**31-1 if sign > 0 else 2**31
-        
+        intmax = 2**31 - 1 if sign > 0 else 2**31
+
         val = x * sign
         out = 0
         while val:
@@ -50,19 +50,23 @@ class Solution:
                 return 0
             out = out * 10 + res
         return out * sign
-        
-        
-@pytest.mark.parametrize('x, output', [
-    (123, 321),
-    (-123, -321),
-    (120, 21),
-    (9009, 9009),
-    (900, 9),
-    (1534236469, 0),
-    (1563847412, 0)
-])
+
+
+@pytest.mark.parametrize(
+    "x, output",
+    [
+        (123, 321),
+        (-123, -321),
+        (120, 21),
+        (9009, 9009),
+        (900, 9),
+        (1534236469, 0),
+        (1563847412, 0),
+    ],
+)
 def test(x, output):
     assert Solution().reverse(x) == output
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

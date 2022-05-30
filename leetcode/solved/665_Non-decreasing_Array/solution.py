@@ -31,7 +31,8 @@ import pdb
 from typing import List
 
 
-MIN = -10**5
+MIN = -(10**5)
+
 
 class Solution:
     # Time : O(N), Space O(1)
@@ -41,9 +42,9 @@ class Solution:
         for i in range(1, len(nums)):
             if last > nums[i]:
                 fail_count += 1
-                if (nums[i-2] if i > 1 else MIN) <= nums[i]:
+                if (nums[i - 2] if i > 1 else MIN) <= nums[i]:
                     last = nums[i]
-                elif (nums[i-2] if i > 1 else MIN) <= last:
+                elif (nums[i - 2] if i > 1 else MIN) <= last:
                     last = last
                 else:
                     fail_count += 1
@@ -55,15 +56,19 @@ class Solution:
         return True
 
 
-@pytest.mark.parametrize('nums, expected', [
-    ([-58, -59, -67], False),
-    ([4,2,1], False),
-    ([4,2,3], True),
-    ([3,4,2,3], False),
-    ([5,7,1,8], True)
-])
+@pytest.mark.parametrize(
+    "nums, expected",
+    [
+        ([-58, -59, -67], False),
+        ([4, 2, 1], False),
+        ([4, 2, 3], True),
+        ([3, 4, 2, 3], False),
+        ([5, 7, 1, 8], True),
+    ],
+)
 def test(nums, expected):
     assert Solution().checkPossibility(nums) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

@@ -44,25 +44,24 @@ class Solution:
         # advance N in prior
         for _ in range(n):
             n_ptr = n_ptr.next
-        
+
         while n_ptr:
             n_ptr = n_ptr.next
             if n_ptr is None:
                 parent = ptr
             ptr = ptr.next
-            
-        
+
         if parent is None:
             return ptr.next
         else:
             parent.next = ptr.next if ptr else None
         return head
-            
 
-@pytest.mark.parametrize('', [
-])
+
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

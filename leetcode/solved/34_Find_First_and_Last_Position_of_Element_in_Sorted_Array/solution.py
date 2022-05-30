@@ -39,9 +39,9 @@ def bsearch(nums, target, left, right):
         if nums[mid] == target:
             return mid
         if nums[mid] < target:
-            return bsearch(nums, target, mid, right) 
+            return bsearch(nums, target, mid, right)
         else:
-            return bsearch(nums, target, left, mid) 
+            return bsearch(nums, target, left, mid)
     else:
         try:
             if nums[left] == target:
@@ -51,16 +51,15 @@ def bsearch(nums, target, left, right):
         except:
             return -1
         return -1
-    
 
 
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         # search middle
-        mid = self.find_bsearch(nums, target, 0, len(nums)-1, None)
+        mid = self.find_bsearch(nums, target, 0, len(nums) - 1, None)
         if mid < 0:
             return [-1, -1]
-        right = self.find_bsearch(nums, target, mid, len(nums)-1, direction=1)
+        right = self.find_bsearch(nums, target, mid, len(nums) - 1, direction=1)
         left = self.find_bsearch(nums, target, 0, mid, direction=-1)
         return [min(left, mid), max(mid, right)]
 
@@ -74,14 +73,14 @@ class Solution:
                 if not direction and nums[mid] == target:
                     return mid
                 elif direction == 1:
-                    return self.find_bsearch(nums, target, mid, right, direction) 
+                    return self.find_bsearch(nums, target, mid, right, direction)
                 else:
-                    return self.find_bsearch(nums, target, left, mid, direction) 
-                    
+                    return self.find_bsearch(nums, target, left, mid, direction)
+
             if nums[mid] < target:
-                return self.find_bsearch(nums, target, mid, right, direction) 
+                return self.find_bsearch(nums, target, mid, right, direction)
             else:
-                return self.find_bsearch(nums, target, left, mid, direction) 
+                return self.find_bsearch(nums, target, left, mid, direction)
         else:
             if not direction:
                 try:
@@ -100,26 +99,34 @@ class Solution:
                 return right
 
 
-@pytest.mark.parametrize('nums, target, expected', [
-    ([5,7,7,8,8,10], 8, [3,4]),
-    ([5,7,7,8,8,10], 6, [-1,-1]),
-    ([], 0, [-1,-1]),
-    ([2, 2], 2, [0,1]),
-    ([1,1,2], 1, [0,1]),
-    ([1,2,3,3,3,3,4,5,9], 3, [2,5]),
-    ([0,0,1,1,2,2,2,2,3,3,4,4,4,5,6,6,6,7,8,8], 4, [10, 12])
-])
+@pytest.mark.parametrize(
+    "nums, target, expected",
+    [
+        ([5, 7, 7, 8, 8, 10], 8, [3, 4]),
+        ([5, 7, 7, 8, 8, 10], 6, [-1, -1]),
+        ([], 0, [-1, -1]),
+        ([2, 2], 2, [0, 1]),
+        ([1, 1, 2], 1, [0, 1]),
+        ([1, 2, 3, 3, 3, 3, 4, 5, 9], 3, [2, 5]),
+        ([0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 6, 6, 7, 8, 8], 4, [10, 12]),
+    ],
+)
 def test(nums, target, expected):
     assert Solution().searchRange(nums, target) == expected
 
-@pytest.mark.parametrize('nums, target, expected', [
-    ([5,7,7,8,8,10], 8, 3),
-    ([5,7,7,8,8,10], 6, -1),
-    ([], 0, -1),
-    ([1,4], 4, 1)
-])
-def test_binary_search(nums, target, expected):
-    assert bsearch(nums, target, 0, len(nums)-1) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+@pytest.mark.parametrize(
+    "nums, target, expected",
+    [
+        ([5, 7, 7, 8, 8, 10], 8, 3),
+        ([5, 7, 7, 8, 8, 10], 6, -1),
+        ([], 0, -1),
+        ([1, 4], 4, 1),
+    ],
+)
+def test_binary_search(nums, target, expected):
+    assert bsearch(nums, target, 0, len(nums) - 1) == expected
+
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

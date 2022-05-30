@@ -45,8 +45,8 @@ Follow-up: Can you implement the stack using only one queue?
 import pytest
 from collections import deque
 
-class MyStack:
 
+class MyStack:
     def __init__(self):
         self.size = 0
         self.q = deque([])
@@ -61,15 +61,12 @@ class MyStack:
     def pop(self) -> int:
         self.size -= 1
         return self.q.popleft()
-        
 
     def top(self) -> int:
         return self.q[0]
-        
 
     def empty(self) -> bool:
         return False if self.q else True
-        
 
 
 # Your MyStack object will be instantiated and called as such:
@@ -80,10 +77,10 @@ class MyStack:
 # param_4 = obj.empty()
 
 
-@pytest.mark.parametrize('', [
-])
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

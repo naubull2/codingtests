@@ -43,14 +43,13 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        
+
         # 1. simple pop -> insert operation
         while k:
             p = nums.pop()
             nums.insert(0, p)
             k -= 1
-        
-        
+
         # 2. buffer insert -> may fail when K is larger than the list size
         n = len(nums)
         shift = k % n
@@ -59,14 +58,14 @@ class Solution:
             while shift:
                 nums.pop()
                 shift -= 1
-        
+
         # 3. combine 1 & 2 to improve 1's speed, cutting through redundant full rotations
         shift = k % len(nums)
         while shift:
             p = nums.pop()
             nums.insert(0, p)
             shift -= 1
-        
+
         # 4. improve 2's approach by deallocating the trailing shift in batch
         shift = k % len(nums)
         if shift:
@@ -79,34 +78,35 @@ class Solution:
             return
         nums[:] = nums[-k:] + nums[:-k]
 
-
         # 6. swap N into it's place
         N = len(nums)
         shift = k % N
-        if not shift: return
-        
+        if not shift:
+            return
+
         cnt, i = 0, 0
         while cnt < N:
             init, num = i, nums[i]
-            while True: # k mod N loop
-                next_pos = (i+shift) % N
+            while True:  # k mod N loop
+                next_pos = (i + shift) % N
                 t = nums[next_pos]
                 nums[next_pos] = num
                 num = t
                 i = next_pos
                 cnt += 1
-                if i == init: # loop again
-                    i+=1
+                if i == init:  # loop again
+                    i += 1
                     break
 
-@pytest.mark.parametrize('nums, k, expected', [
-    ([1], 0, [1]),
-    ([99,-1,-100,3], 1, [3, 99, -1, -100]),
-    ([-1], 2, [-1])
-])
+
+@pytest.mark.parametrize(
+    "nums, k, expected",
+    [([1], 0, [1]), ([99, -1, -100, 3], 1, [3, 99, -1, -100]), ([-1], 2, [-1])],
+)
 def test(nums, k, expected):
     Solution().rotate(nums, k)
     assert nums == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

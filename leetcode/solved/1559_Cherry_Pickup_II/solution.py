@@ -55,37 +55,52 @@ class Solution:
         # keep track of bots' column index on each height h (bots move at the same time)
         def solve(x, y1, y2):
             if y1 > y2:
-                # If two bots cross each other's path, then it would result in the same(repetition) 
+                # If two bots cross each other's path, then it would result in the same(repetition)
                 # result if the bots didn't cross and go the otherway, so we keep this order.
                 y1, y2 = y2, y1
             if y1 < 0 or y2 >= w:
                 return 0
-            
+
             if cache[x][y1][y2] != -1:
                 return cache[x][y1][y2]
-            
+
             if y1 == y2:
                 cache[x][y1][y2] = grid[x][y1]  # at the same cell, only pickup once
             else:
-                cache[x][y1][y2] = grid[x][y1] + grid[x][y2] # otherwise sum up cherries
-            
+                cache[x][y1][y2] = (
+                    grid[x][y1] + grid[x][y2]
+                )  # otherwise sum up cherries
+
             nxt = 0
-            if x != h-1:
+            if x != h - 1:
                 for idx in range(-1, 2):
                     for jdx in range(-1, 2):
-                        nxt = max(nxt, solve(x+1, y1+idx, y2+jdx))
+                        nxt = max(nxt, solve(x + 1, y1 + idx, y2 + jdx))
             cache[x][y1][y2] += nxt
             return cache[x][y1][y2]
-    
-        solve(0, 0, w-1)
-        return cache[0][0][w-1]
+
+        solve(0, 0, w - 1)
+        return cache[0][0][w - 1]
 
 
-@pytest.mark.parametrize('grid, cherries', [
-	([[1,0,0,0,0,0,1],[2,0,0,0,0,3,0],[2,0,9,0,0,0,0],[0,3,0,5,4,0,0],[1,0,2,3,0,0,6]], 28)
-])
+@pytest.mark.parametrize(
+    "grid, cherries",
+    [
+        (
+            [
+                [1, 0, 0, 0, 0, 0, 1],
+                [2, 0, 0, 0, 0, 3, 0],
+                [2, 0, 9, 0, 0, 0, 0],
+                [0, 3, 0, 5, 4, 0, 0],
+                [1, 0, 2, 3, 0, 0, 6],
+            ],
+            28,
+        )
+    ],
+)
 def test(grid, cherries):
-	assert Solution().cherryPickup(grid) == cherries
+    assert Solution().cherryPickup(grid) == cherries
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

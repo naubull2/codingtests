@@ -48,6 +48,7 @@ import pytest
 #         self.val = val
 #         self.next = next
 
+
 class Solution:
     # it's either O(N) for space or runtime trade offs.
     # If getRandom is to be called often, we use space to boost runtime,
@@ -83,20 +84,16 @@ class Solution:
         return r
 
 
-
-
-@pytest.mark.parametrize('values', [
-     ([1, 2, 3])
-])
+@pytest.mark.parametrize("values", [([1, 2, 3])])
 def test(values):
     obj = Solution(build_list(values))
     cnt = defaultdict(int)
     for i in range(10000):
         cnt[obj.getRandom().val] += 1
 
-	# See if random enough
+    # See if random enough
     print(cnt)
 
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

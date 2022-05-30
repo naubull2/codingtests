@@ -42,6 +42,8 @@ Exhaustive search
   - search N^2 pairwise
 
 """
+
+
 class Solution:
     def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
         L = len(nums)
@@ -50,29 +52,31 @@ class Solution:
         nums.sort()
         # For table of divisible subset containing nums[i],
         dp = [[num] for num in nums]
-        
+
         for i in range(len(nums)):
             # Check for nums[j] where adding nums[i] to dp[j] results in larger subset
             for j in range(i):
-                if nums[i] % nums[j] == 0 and len(dp[i]) < len(dp[j])+1:
+                if nums[i] % nums[j] == 0 and len(dp[i]) < len(dp[j]) + 1:
                     dp[i] = dp[j] + [nums[i]]
 
         # then return the largest set
         return max(dp, key=len)
 
 
-
-
-@pytest.mark.parametrize('nums, target', [
-    ([1,2,3],[1,2]),
-    ([1,2,4,8], [1,2,4,8]),
-    ([3,4,16,8], [4,8,16]),
-    ([5,9,18,54,108,540,90,180,360,720], [9,18,90,180,360,720]),
-    ([9,75,12,18,90,4,36,8,28,2], [2, 4, 12, 36])
-])
+@pytest.mark.parametrize(
+    "nums, target",
+    [
+        ([1, 2, 3], [1, 2]),
+        ([1, 2, 4, 8], [1, 2, 4, 8]),
+        ([3, 4, 16, 8], [4, 8, 16]),
+        ([5, 9, 18, 54, 108, 540, 90, 180, 360, 720], [9, 18, 90, 180, 360, 720]),
+        ([9, 75, 12, 18, 90, 4, 36, 8, 28, 2], [2, 4, 12, 36]),
+    ],
+)
 def test(nums, target):
     assert sorted(Solution().largestDivisibleSubset(nums)) == sorted(target)
 
-if __name__ == '__main__':
-    #sys.exit(pytest.main(['-s', '-v'] + sys.argv))
-    print(Solution().largestDivisibleSubset([9,75,12,18,90,4,36,8,28,2]))
+
+if __name__ == "__main__":
+    # sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+    print(Solution().largestDivisibleSubset([9, 75, 12, 18, 90, 4, 36, 8, 28, 2]))

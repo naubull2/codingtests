@@ -38,16 +38,18 @@ class ListNode:
         self.val = val
         self.next = next
 
+
 def print_list(head):
     print(head.val)
     while head.next:
         head = head.next
         print(head.val)
-        
+
 
 class Solution:
     def insertionSortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         output = ListNode(head.val)
+
         def insert(prev, head, val):
             if head.val < val:
                 if head.next:
@@ -66,19 +68,17 @@ class Solution:
             # move one node at a time
             head = head.next
             output = insert(None, output, head.val)
-            
+
         return output
-            
-
-            
 
 
-@pytest.mark.parametrize('arr, expected', [
-    ([4,2,1,3], [1,2,3,4]),
-    ([-1,5,3,5,0], [-1,0,3,4,5])
-])
+@pytest.mark.parametrize(
+    "arr, expected",
+    [([4, 2, 1, 3], [1, 2, 3, 4]), ([-1, 5, 3, 5, 0], [-1, 0, 3, 4, 5])],
+)
 def test(arr, expected):
     assert Solution().insertionSortList(arr) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

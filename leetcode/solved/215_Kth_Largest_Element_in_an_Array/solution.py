@@ -36,18 +36,18 @@ class Solution:
         # Use min-heap to keep K largest, removing smallest in the heap onthe fly
         q = []
         for n in nums:
-            heappush(q, n) # logK
+            heappush(q, n)  # logK
             if len(q) > k:
-                heappop(q) # logk
+                heappop(q)  # logk
         return q[0]
 
 
-@pytest.mark.parametrize('arr, k, val', [
-    ([3,2,1,5,6,4], 2, 5),
-    ([3,2,3,1,2,4,5,5,6], 4, 4)
-])
+@pytest.mark.parametrize(
+    "arr, k, val", [([3, 2, 1, 5, 6, 4], 2, 5), ([3, 2, 3, 1, 2, 4, 5, 5, 6], 4, 4)]
+)
 def test(arr, k, val):
     assert Solution().findKthLargest(arr, k) == val
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

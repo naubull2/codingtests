@@ -30,7 +30,7 @@ import pdb
 from typing import Optional
 
 
-#Definition for a binary tree node.
+# Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -42,12 +42,13 @@ def compose_bst(vals):
     def build_subtree_at(index, arr):
         if index > len(arr):
             return None
-        node = TreeNode(arr[index-1])
-        node.left = build_subtree_at(index*2, arr)
-        node.right = build_subtree_at(index*2+1, arr)
+        node = TreeNode(arr[index - 1])
+        node.left = build_subtree_at(index * 2, arr)
+        node.right = build_subtree_at(index * 2 + 1, arr)
         return node
+
     return build_subtree_at(1, vals)
-                            
+
 
 class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
@@ -67,14 +68,17 @@ class Solution:
         return result
 
 
-@pytest.mark.parametrize('root, low, high, expected', [
-    ([10,5,15,3,7,13,18,1,None,6], 6, 10, 23),
-    ([10,5,15,3,7,None,18], 7, 15, 32)
-])
+@pytest.mark.parametrize(
+    "root, low, high, expected",
+    [
+        ([10, 5, 15, 3, 7, 13, 18, 1, None, 6], 6, 10, 23),
+        ([10, 5, 15, 3, 7, None, 18], 7, 15, 32),
+    ],
+)
 def test(root, low, high, expected):
     root = compose_bst(root)
     assert expected == Solution().rangeSumBST(root, low, high)
 
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

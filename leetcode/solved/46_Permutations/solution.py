@@ -29,10 +29,8 @@ from collections import deque
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         # Tree search with BFS
-        N = len(nums):
-        level = deque([
-            ([], nums)
-        ])
+        N = len(nums)
+        level = deque([([], nums)])
         ans = []
         while level:
             candidate, rest = level.popleft()
@@ -41,9 +39,9 @@ class Solution:
                 if len(expansion) == N:
                     ans.append(expansion)
                 else:
-                    level.append((expansion, rest[:j]+rest[j+1:]))
+                    level.append((expansion, rest[:j] + rest[j + 1 :]))
         return ans
 
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

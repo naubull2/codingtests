@@ -36,32 +36,39 @@ Constraints:
 	0 <= key <= 106
 	At most 104 calls will be made to add, remove, and contains.
 """
+
+
 class MyHashSet:
     def __init__(self):
-        self.hash_size = 2986 # since max value is 10**6
+        self.hash_size = 2986  # since max value is 10**6
         self.hash = lambda x: x**2 % self.hash_size
-        self.slots = [[] for _ in range(self.hash_size)] 
+        self.slots = [[] for _ in range(self.hash_size)]
 
-    def add(self, key: int) -> None: # O(1)
+    def add(self, key: int) -> None:  # O(1)
         hash_key = self.hash(key)
         if key not in self.slots[hash_key]:
-            #self.slots[hash_key].append(key)
+            # self.slots[hash_key].append(key)
             i = 0
             while i < len(self.slots[hash_key]):
                 if self.slots[hash_key][i] > key:
                     self.slots[hash_key].insert(i, key)
                     return None
-                i+=1
+                i += 1
             self.slots[hash_key].append(key)
-        
+
     def remove(self, key: int) -> None:
         hash_key = self.hash(key)
         if key in self.slots[hash_key]:
             self.slots[hash_key].remove(key)
-        
+
     def contains(self, key: int) -> bool:
         hash_key = self.hash(key)
-        if self._binary_search(self.slots[hash_key], key, 0, len(self.slots[hash_key])-1) is not None:
+        if (
+            self._binary_search(
+                self.slots[hash_key], key, 0, len(self.slots[hash_key]) - 1
+            )
+            is not None
+        ):
             return True
         return False
 
@@ -71,11 +78,11 @@ class MyHashSet:
             if data[mid] == key:
                 return mid
             elif data[mid] > key:
-                return self._binary_search(data, key, left, mid-1)
-            return self._binary_search(data, key, mid+1, right)
-            
+                return self._binary_search(data, key, left, mid - 1)
+            return self._binary_search(data, key, mid + 1, right)
+
         return None
-       
+
 
 # Your MyHashSet object will be instantiated and called as such:
 # obj = MyHashSet()

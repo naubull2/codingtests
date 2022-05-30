@@ -45,49 +45,64 @@ Constraints:
 import pytest
 from typing import List
 
+
 class Solution:
     def spellchecker(self, wordlist: List[str], queries: List[str]) -> List[str]:
-        answer = [] 
+        answer = []
+
         def mask_vowels(word):
-            return ''.join(
-                '*' if c in 'aeiou' else c
-                for c in word.lower()
-            )
-        
+            return "".join("*" if c in "aeiou" else c for c in word.lower())
+
         exact_set = set(wordlist)
         capital_map = dict()
         vowel_map = dict()
-        
+
         for w in wordlist:
             capital_map.setdefault(w.lower(), w)
             vowel_map.setdefault(mask_vowels(w), w)
-        
+
         for q in queries:
             # exact match first
             if q in exact_set:
                 answer.append(q)
             else:
-                match = capital_map.get(q.lower(), '')
+                match = capital_map.get(q.lower(), "")
                 if match:
                     # next try the captialization
                     answer.append(match)
                 else:
                     # finally vowel correction, otherwise return empty
-                    match = vowel_map.get(mask_vowels(q), '')
+                    match = vowel_map.get(mask_vowels(q), "")
                     answer.append(match)
-                    
+
         return answer
 
-@pytest.mark.parametrize('wordlist, queries, expected', [
-  (
-    ["KiTe","kite","hare","Hare"],
-    ["kite","Kite","KiTe","Hare","HARE","Hear","hear","keti","keet","keto"],
-    ["kite","KiTe","KiTe","Hare","hare","","","KiTe","","KiTe"]
-  ),
-  (["yellow"], ["YellOw"], ["yellow"])
-])
+
+@pytest.mark.parametrize(
+    "wordlist, queries, expected",
+    [
+        (
+            ["KiTe", "kite", "hare", "Hare"],
+            [
+                "kite",
+                "Kite",
+                "KiTe",
+                "Hare",
+                "HARE",
+                "Hear",
+                "hear",
+                "keti",
+                "keet",
+                "keto",
+            ],
+            ["kite", "KiTe", "KiTe", "Hare", "hare", "", "", "KiTe", "", "KiTe"],
+        ),
+        (["yellow"], ["YellOw"], ["yellow"]),
+    ],
+)
 def test(wordlist, queries, expected):
     assert Solution().spellchecker(wordlist, queries) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

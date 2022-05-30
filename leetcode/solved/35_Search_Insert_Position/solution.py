@@ -37,29 +37,33 @@ from typing import List
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         # Basic binary search but only handle not-found differently
-        low, high = 0, len(nums)-1
+        low, high = 0, len(nums) - 1
         while low <= high:
-            mid = low + (high-low)//2
+            mid = low + (high - low) // 2
             if nums[mid] == target:
                 return mid
             if nums[mid] < target:
                 low = mid + 1
             else:
                 high = mid - 1
-                
+
         return low
 
 
-@pytest.mark.parametrize('nums, target, expected', [
-    ([-1,0,3,5,9,12], 9, 4),
-    ([-1,0,3,5,9,12], 2, 2),
-    ([2, 5], 5, 1),
-    ([-1, 0, 5], 5, 2),
-    ([-1, 0, 5], 2, 2)
-])
+@pytest.mark.parametrize(
+    "nums, target, expected",
+    [
+        ([-1, 0, 3, 5, 9, 12], 9, 4),
+        ([-1, 0, 3, 5, 9, 12], 2, 2),
+        ([2, 5], 5, 1),
+        ([-1, 0, 5], 5, 2),
+        ([-1, 0, 5], 2, 2),
+    ],
+)
 def test(nums, target, expected):
-    obj= Solution()
+    obj = Solution()
     assert obj.searchInsert(nums, target) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

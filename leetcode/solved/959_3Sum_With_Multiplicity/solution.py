@@ -38,6 +38,7 @@ import pytest
 
 from collections import Counter
 
+
 class Solution(object):
     def threeSumMulti(self, A, target):
         num_counter = Counter(A)
@@ -52,12 +53,12 @@ class Solution(object):
 
         for i, x in enumerate(sorted_values):
             # x < y < z
-            for y in sorted_values[i+1:]:
+            for y in sorted_values[i + 1 :]:
                 z = target - x - y
                 if y < z <= edge:
                     ans += num_counter[x] * num_counter[y] * num_counter[z]
             # x == y
-            z = target - 2*x
+            z = target - 2 * x
             if x < z <= edge:
                 ans += num_counter[x] * (num_counter[x] - 1) // 2 * num_counter[z]
 
@@ -66,15 +67,17 @@ class Solution(object):
                 y = (target - x) // 2
                 if x < y <= edge:
                     ans += num_counter[x] * num_counter[y] * (num_counter[y] - 1) // 2
-                    
+
         return ans % (10**9 + 7)
 
-@pytest.mark.parametrize('arr, target, expected', [
-    ([1,1,2,2,3,3,4,4,5,5], 8, 20),
-	([1,1,2,2,2,2], 5, 12)
-])
-def test(arr, target, expected):
-	assert Solution().threeSumMulti(arr, target) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+@pytest.mark.parametrize(
+    "arr, target, expected",
+    [([1, 1, 2, 2, 3, 3, 4, 4, 5, 5], 8, 20), ([1, 1, 2, 2, 2, 2], 5, 12)],
+)
+def test(arr, target, expected):
+    assert Solution().threeSumMulti(arr, target) == expected
+
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

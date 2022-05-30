@@ -53,8 +53,8 @@ class Solution:
     def wordSubsets(self, A: List[str], B: List[str]) -> List[str]:
         hist = defaultdict(int)
         for b in B:
-               for s in b:
-                       hist[s] = max(b.count(s), hist[s])
+            for s in b:
+                hist[s] = max(b.count(s), hist[s])
         universals = []
         for a in A:
             is_subset = True
@@ -67,15 +67,39 @@ class Solution:
         return universals
 
 
-@pytest.mark.parametrize('A, B, expected', [
-    (["amazon","apple","facebook","google","leetcode"], ["e","o"], ["facebook","google","leetcode"]),
-    (["amazon","apple","facebook","google","leetcode"], ["l","e"], ["apple","google","leetcode"]),
-    (["amazon","apple","facebook","google","leetcode"], ["e","oo"], ["facebook","google"]),
-    (["amazon","apple","facebook","google","leetcode"], ["lo","eo"], ["google","leetcode"]),
-    (["amazon","apple","facebook","google","leetcode"], ["ec","oc","ceo"], ["facebook","leetcode"])
-])
+@pytest.mark.parametrize(
+    "A, B, expected",
+    [
+        (
+            ["amazon", "apple", "facebook", "google", "leetcode"],
+            ["e", "o"],
+            ["facebook", "google", "leetcode"],
+        ),
+        (
+            ["amazon", "apple", "facebook", "google", "leetcode"],
+            ["l", "e"],
+            ["apple", "google", "leetcode"],
+        ),
+        (
+            ["amazon", "apple", "facebook", "google", "leetcode"],
+            ["e", "oo"],
+            ["facebook", "google"],
+        ),
+        (
+            ["amazon", "apple", "facebook", "google", "leetcode"],
+            ["lo", "eo"],
+            ["google", "leetcode"],
+        ),
+        (
+            ["amazon", "apple", "facebook", "google", "leetcode"],
+            ["ec", "oc", "ceo"],
+            ["facebook", "leetcode"],
+        ),
+    ],
+)
 def test(A, B, expected):
     assert Solution().wordSubsets(A, B) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

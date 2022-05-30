@@ -33,7 +33,8 @@ import pytest
 class Solution:
     def isPowerOfThree(self, n: int) -> bool:
         # 1. a simple loop until N
-        if n == 1: return True
+        if n == 1:
+            return True
         num = 3
         while num < n:
             num *= 3
@@ -45,27 +46,20 @@ class Solution:
 # 2. Use the constraint. (No loop/recursion)
 # maximum possible power of three is 3^20 < 2^31-1
 # depends on system (sys.maxsize), but the problem gave us 2^31-1
-'''
+"""
 if n <= 0:
     return False
 
 if 3**20 % n == 0:
     return True
 return False
-'''
+"""
 
 
-
-
-@pytest.mark.parametrize('n, ispower', [
-              (27, True),
-              (0, False),
-              (9, True),
-              (45, False)
-])
+@pytest.mark.parametrize("n, ispower", [(27, True), (0, False), (9, True), (45, False)])
 def test(n, ispower):
     assert Solution().isPowerOfThree(n) == ispower
 
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

@@ -47,14 +47,14 @@ def build_tree(lst):
 
     root = TreeNode(lst[0])
     queue = deque([root])
-    att = ['left', 'right']
-    cur = 0 # we will swap this 0<->1 backnforth to access the atts
+    att = ["left", "right"]
+    cur = 0  # we will swap this 0<->1 backnforth to access the atts
     for x in lst[1:]:
         node = TreeNode(x) if x is not None else None
         setattr(queue[0], att[cur], node)
-        if cur: # right
+        if cur:  # right
             queue.popleft()
-        if node: # expand
+        if node:  # expand
             queue.append(node)
         cur += 1
         cur %= 2
@@ -65,29 +65,28 @@ class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
-        q = deque([(root, 0)]) # node and its depth
-        ans = [[]] # initialize with depth 0
+        q = deque([(root, 0)])  # node and its depth
+        ans = [[]]  # initialize with depth 0
         while q:
             node, depth = q.popleft()
             # do nothing if the node is None
             if node:
                 if depth >= len(ans):
-                    ans.append([]) # add new level when needed
-            
+                    ans.append([])  # add new level when needed
+
                 ans[depth].append(node.val)
-                q.extend([(node.left, depth+1), (node.right, depth+1)])
+                q.extend([(node.left, depth + 1), (node.right, depth + 1)])
         return ans
-            
 
 
-@pytest.mark.parametrize('tree, levels', [
-    ([3,9,20,None,None,15,7], [[3], [9,20], [15,7]]),
-    ([1], [[1]]),
-    ([], [])
-])
+@pytest.mark.parametrize(
+    "tree, levels",
+    [([3, 9, 20, None, None, 15, 7], [[3], [9, 20], [15, 7]]), ([1], [[1]]), ([], [])],
+)
 def test(tree, levels):
     root = build_tree(tree)
     assert Solution().levelOrder(root) == levels
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

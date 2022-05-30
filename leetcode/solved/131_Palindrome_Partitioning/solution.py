@@ -28,14 +28,14 @@ from functools import lru_cache
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
         def palindrome(s):
-            for i in range(len(s)//2):
-                if s[i] != s[len(s)-1-i]:
+            for i in range(len(s) // 2):
+                if s[i] != s[len(s) - 1 - i]:
                     return False
             return True
-        
+
         # custom cache works much faster than lru_cache (functools)
         cache = {}
-        
+
         def subset(s):
             if s in cache:
                 return cache[s]
@@ -58,14 +58,40 @@ class Solution:
         return subset(s)
 
 
-@pytest.mark.parametrize('s, output', [
-    ('aab', [['a', 'a', 'b'], ['aa', 'b']]),
-    ('a', [['a']]),
-    ('aabaa', [['a', 'a', 'b', 'a', 'a'], ['a', 'a', 'b', 'aa'], ['aa', 'b', 'a', 'a'], ['aa', 'b', 'aa'], ['a', 'aba', 'a'], ['aabaa']]),
-    ('ffff', [['ffff'], ['f', 'fff'], ['f', 'f', 'ff'], ['f', 'f', 'f', 'f'], ['f', 'ff', 'f'], ['ff', 'ff'], ['ff', 'f', 'f'], ['fff', 'f']])
-])
+@pytest.mark.parametrize(
+    "s, output",
+    [
+        ("aab", [["a", "a", "b"], ["aa", "b"]]),
+        ("a", [["a"]]),
+        (
+            "aabaa",
+            [
+                ["a", "a", "b", "a", "a"],
+                ["a", "a", "b", "aa"],
+                ["aa", "b", "a", "a"],
+                ["aa", "b", "aa"],
+                ["a", "aba", "a"],
+                ["aabaa"],
+            ],
+        ),
+        (
+            "ffff",
+            [
+                ["ffff"],
+                ["f", "fff"],
+                ["f", "f", "ff"],
+                ["f", "f", "f", "f"],
+                ["f", "ff", "f"],
+                ["ff", "ff"],
+                ["ff", "f", "f"],
+                ["fff", "f"],
+            ],
+        ),
+    ],
+)
 def test(s, output):
     assert sorted(Solution().partition(s)) == sorted(output)
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

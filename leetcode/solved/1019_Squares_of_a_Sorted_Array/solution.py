@@ -33,8 +33,8 @@ from typing import List
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
         bs, fs = [], []
-        sq = [n**2 for n in nums] # O(N)
-        
+        sq = [n**2 for n in nums]  # O(N)
+
         last = sq[0]
         for n in sq:
             if not bs:
@@ -50,14 +50,12 @@ class Solution:
         if bs:
             fs.extend(bs[::-1])
         return fs
-                
-        
 
-@pytest.mark.parametrize('nums, expected', [
-    ([-4, -4, -3], [9, 16, 16])
-])
+
+@pytest.mark.parametrize("nums, expected", [([-4, -4, -3], [9, 16, 16])])
 def test(nums, expected):
     assert Solution().sortedSquares(nums) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

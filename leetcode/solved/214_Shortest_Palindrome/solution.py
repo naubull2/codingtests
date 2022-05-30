@@ -26,15 +26,15 @@ import pytest
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
         ## check palindrome in k//2 comparison
-        #def isPalindrome(st):
+        # def isPalindrome(st):
         #    if st[:len(st)//2] == st[::-1][:len(st)//2]:
         #        return True
         #    return False
-    
-        #for i in range(len(s), 0, -1):
+
+        # for i in range(len(s), 0, -1):
         #    if isPalindrome(s[:i]):
         #        return s[i:][::-1] + s
-        #return s[::-1] + s
+        # return s[::-1] + s
         lsp = 0
         s1 = s
         s2 = s[::-1]
@@ -45,15 +45,15 @@ class Solution:
             s1 = s1[:-1]
             s2 = s2[1:]
         return s[lsp:][::-1] + s
-        
 
-@pytest.mark.parametrize('st, target', [
-    ('aacecaaa', 'aaacecaaa'),
-    ('abcd', 'dcbabcd'),
-    ('aababa', 'ababaababa')
-])
+
+@pytest.mark.parametrize(
+    "st, target",
+    [("aacecaaa", "aaacecaaa"), ("abcd", "dcbabcd"), ("aababa", "ababaababa")],
+)
 def test(st, target):
     assert Solution().shortestPalindrome(st) == target
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

@@ -41,19 +41,14 @@ class Solution:
     def bitwiseComplement(self, n: int) -> int:
         output = 0
         for i, b in enumerate(bin(n)[2:][::-1]):
-            output +=  (int(b)^1) * 2**i
-        return output 
-            
+            output += (int(b) ^ 1) * 2**i
+        return output
 
 
-
-@pytest.mark.parametrize('n, output', [
-    (5, 2),
-    (7, 0),
-    (10, 5)
-])
+@pytest.mark.parametrize("n, output", [(5, 2), (7, 0), (10, 5)])
 def test(n, output):
     assert Solution().bitwiseComplement(n) == output
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

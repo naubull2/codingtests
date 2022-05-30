@@ -36,21 +36,15 @@ class Solution:
         output = 0
         base = 1
         for b in bin(num)[2:][::-1]:
-            output += base * (int(b)^1)
+            output += base * (int(b) ^ 1)
             base *= 2
         return output
-            
-            
-         
 
 
-@pytest.mark.parametrize('num, output', [
-    (5, 2),
-    (1, 0),
-    (2, 1)
-])
+@pytest.mark.parametrize("num, output", [(5, 2), (1, 0), (2, 1)])
 def test(num, output):
     assert Solution().findComplement(num) == output
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

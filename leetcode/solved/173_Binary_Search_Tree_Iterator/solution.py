@@ -55,8 +55,9 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
-class BSTIterator:
 
+
+class BSTIterator:
     def __init__(self, root: Optional[TreeNode]):
         self.stack = []
         self.curr = root
@@ -74,23 +75,21 @@ class BSTIterator:
                 self.curr = self.curr.left
             return res.val
         return -1
-            
-    
+
     def hasNext(self) -> bool:
         return True if self.stack else False
-        
 
 
 # Your BSTIterator object will be instantiated and called as such:
 # obj = BSTIterator(root)
 # param_1 = obj.next()
-# param_2 = obj.hasNext() 
+# param_2 = obj.hasNext()
 
 
-@pytest.mark.parametrize('', [
-])
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

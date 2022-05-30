@@ -46,26 +46,30 @@ from typing import List
 
 class Solution:
     def findJudge(self, n: int, trust: List[List[int]]) -> int:
-        trust_map = {i+1: [] for i in range(n)}
-        candidates = set({i+1 for i in range(n)})
+        trust_map = {i + 1: [] for i in range(n)}
+        candidates = set({i + 1 for i in range(n)})
         for t in trust:
             trust_map[t[1]].append(t[0])
             if t[0] in candidates:
                 candidates.remove(t[0])
-        
+
         for c in candidates:
-            if len(trust_map[c]) == n-1:
+            if len(trust_map[c]) == n - 1:
                 return c
-        return -1 
+        return -1
 
 
-@pytest.mark.parametrize('n, trust, expected', [
-    (2, [[1,2]], 2),
-    (3, [[1,3],[2,3]], 3),
-    (4, [[1,3],[1,4],[2,3],[2,4],[4,3]], 3)
-])
+@pytest.mark.parametrize(
+    "n, trust, expected",
+    [
+        (2, [[1, 2]], 2),
+        (3, [[1, 3], [2, 3]], 3),
+        (4, [[1, 3], [1, 4], [2, 3], [2, 4], [4, 3]], 3),
+    ],
+)
 def test(n, trust, expected):
     assert Solution().findJudge(n, trust) == expected
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))

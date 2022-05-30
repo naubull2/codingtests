@@ -43,9 +43,9 @@ import pytest
 
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        # simple O(N) solution 
-        
-        l, r = 0, len(numbers)-1
+        # simple O(N) solution
+
+        l, r = 0, len(numbers) - 1
         while l < r:
             # l != r as in the definitio\
             s = numbers[l] + numbers[r]
@@ -55,21 +55,22 @@ class Solution:
                 l += 1
             else:
                 r -= 1
-                
-        return [l+1, r+1]
-        '''
+
+        return [l + 1, r + 1]
+        """
         
         # cheat the condition by using hash table which is not O(1) space complexity
         hmap = {n:i for i, n in enumerate(numbers)}
         for i, n in enumerate(numbers):
             if (target-n) in hmap:
                 return sorted([i+1, hmap[target-n]+1])
-        '''
+        """
 
-@pytest.mark.parametrize('', [
-])
+
+@pytest.mark.parametrize("", [])
 def test():
     pass
 
-if __name__ == '__main__':
-    sys.exit(pytest.main(['-s', '-v'] + sys.argv))
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(["-s", "-v"] + sys.argv))
