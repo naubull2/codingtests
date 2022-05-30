@@ -13,20 +13,19 @@ print_tree(root)
 print("DFS")
 stack = []  # to go down the tree and backtrack up
 current = root
-while True:
 
-    if current is not None:
+while stack or current:
+    # Finish when nothing to go down or backtrack
+    while current:
         # go down until left most leafnode
         stack.append(current)
         current = current.left
-    elif stack:
-        # backtrack
-        current = stack.pop()
-        print(current.val)
-        current = current.right
-    else:
-        # Finish when nothing to go down or backtrack
-        break
+
+    current = stack.pop()
+    print(current.val)
+    current = current.right
+        
+    
 
 
 ###################
