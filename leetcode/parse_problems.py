@@ -77,7 +77,7 @@ DATA = {
 
 TEMPLATE = '''
 # coding: utf-8
-# Copyright © 2021 naubull2 <naubull2@gmail.com>
+# Copyright © 2022 naubull2 <naubull2@gmail.com>
 #
 # Distributed under terms of the MIT license.
 
